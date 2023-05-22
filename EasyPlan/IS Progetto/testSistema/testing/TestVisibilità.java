@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class TestVisibilit‡ {
+public class TestVisibilit√† {
 
 	public static final String PATH= "C:\\Users\\Franc\\Desktop\\GoogleDriver\\" + "chromedriver.exe";
 	public static final String URL="http://localhost:8080/IS_Progetto/Homepage.html";
