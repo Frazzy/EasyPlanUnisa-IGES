@@ -1,2 +1,2 @@
 # EasyPlanUnisa
-Progetto EasyPlan per gli esami di Gestione dei Progetti Software e Ingegneria del Software
+Progetto EasyPlan per l'esame di Ingegneria Gestione ed Evoluzione del Software
