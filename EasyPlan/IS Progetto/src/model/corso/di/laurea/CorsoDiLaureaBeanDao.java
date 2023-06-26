@@ -58,14 +58,16 @@ public class CorsoDiLaureaBeanDao {
   public synchronized boolean doSaveOrUpdate(CorsoDiLaureaBean cb) throws IOException {
     Connection conn = null;
     PreparedStatement ps = null;
+    ResultSet result = null;
 
     try {
-      conn = DriverManagerConnectionPool.getConnection();
-
-      String query = null;
-      ResultSet result = ps.executeQuery(
-          "SELECT IDCorsoDiLaurea FROM corsodilaurea WHERE IDCorsoDiLaurea='" 
-          + cb.getIdCorsoDiLaurea() + "'");
+    	conn = DriverManagerConnectionPool.getConnection();
+        
+        String query = "SELECT IDCorsoDiLaurea FROM corsodilaurea WHERE IDCorsoDiLaurea=?";
+        ps = conn.prepareStatement(query);
+        ps.setInt(1, cb.getIdCorsoDiLaurea());
+        
+        result = ps.executeQuery();
 
       if (result.next()) {
         query = "UPDATE corsodilaurea SET Tipo=?, AnnoOffertaFormativa=? WHERE IDCorsoDiLaurea=?";
@@ -79,6 +81,18 @@ public class CorsoDiLaureaBeanDao {
         if (i != 0) {
           return true;
         }
+      }else {
+    	  query = "INSERT INTO corsodilaurea(IDCorsoDiLaurea, Tipo, AnnoOffertaFormativa) VALUES (?, ?, ?)";
+          ps = conn.prepareStatement(query);
+      
+          ps.setInt(1, cb.getIdCorsoDiLaurea());
+          ps.setInt(2, cb.isTipo());
+          ps.setString(3, cb.getAnnoOffertaFormativa());
+      
+          int i = ps.executeUpdate();
+          if (i != 0) {
+              return true;
+            }
       }
     } catch (SQLException e) {
       e.printStackTrace();

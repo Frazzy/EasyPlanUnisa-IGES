@@ -52,33 +52,52 @@ public class GruppoEsamiObbligatoriBeanDao {
    * @throws IOException eccezione lanciata su I/O
    */
   public synchronized boolean doSaveOrUpdate(GruppoEsamiObbligatoriBean gb) throws IOException {
-    Connection conn = null;
-    PreparedStatement ps = null;
+	  Connection conn = null;
+	   PreparedStatement ps = null;
+	   ResultSet result = null;
 
-    try {
-      conn = DriverManagerConnectionPool.getConnection();
+	   try {
+	      conn = DriverManagerConnectionPool.getConnection();
+	      String query = "SELECT CodiceGEOb FROM gruppoesamiobbligatori WHERE CodiceGEOb=?";
+	      ps = conn.prepareStatement(query);
+	      ps.setInt(1, gb.getCodiceGeOb());
+	      
+	      
+	      result = ps.executeQuery();
 
-      String query = null;
+	      if (result.next()) {
+	    	  query = "UPDATE gruppoesamiobbligatori SET Anno=?,Curriculum=? WHERE CodiceGEOb=?";
+	          ps = conn.prepareStatement(query);
 
-      query = "UPDATE gruppoesamiobbligatori SET Anno=?,Curriculum=? WHERE CodiceGEOb=?";
-      ps = conn.prepareStatement(query);
+	          ps.setInt(1, gb.getAnno());
+	          ps.setInt(2, gb.getIdCurriculum());
+	          ps.setInt(3, gb.getCodiceGeOb());
 
-      ps.setInt(1, gb.getAnno());
-      ps.setInt(2, gb.getIdCurriculum());
-      ps.setInt(3, gb.getCodiceGeOb());
+	        int i = ps.executeUpdate();
+	        if (i != 0) {
+	          return true;
+	        }
+	      }else{
+	    	  query = "INSERT INTO gruppoesamiobbligatori(CodiceGEOb, Anno, Curriculum) VALUES (?, ?, ?)";
+	          ps = conn.prepareStatement(query);
+	          
+	          ps.setInt(1, gb.getCodiceGeOb());
+	          ps.setInt(2, gb.getAnno());
+	          ps.setInt(3, gb.getIdCurriculum());
+	         
+	      
+	          int i = ps.executeUpdate();
+	          if (i != 0) {
+	              return true;
+	            }
+	      }
+	    } catch (SQLException e) {
+	      e.printStackTrace();
+	    }
+	    return false;
+	  }
 
-      int i = ps.executeUpdate();
-      if (i != 0) {
-        return true;
-      }
-
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-
-    return false;
-  }
-
+    
   /**
    * Metodo che ritorna un gruppo obbligatorio data la sua chiave.
    * @param codiceGeOb codice del gruppo

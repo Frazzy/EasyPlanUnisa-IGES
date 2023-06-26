@@ -68,10 +68,10 @@ public class GruppoEsamiOpzionaliBean {
   public ArrayList<EsameBean> getEsami() {
     return esami;
   }
-
+  
   public void setEsami(ArrayList<EsameBean> esami) {
-    this.esami = esami;
-  }
+		this.esami = esami;
+	}
 
   // METODI OBJECT
   @Override
