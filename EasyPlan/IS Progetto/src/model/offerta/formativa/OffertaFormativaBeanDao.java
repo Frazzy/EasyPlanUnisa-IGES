@@ -52,29 +52,46 @@ public class OffertaFormativaBeanDao {
    */
   @SuppressWarnings("unused")
   public synchronized boolean doSaveOrUpdate(OffertaFormativaBean of) throws IOException {
-    Connection conn = null;
-    PreparedStatement ps = null;
+	  Connection conn = null;
+	    PreparedStatement ps = null;
+	    ResultSet result = null;
 
-    try {
-      conn = DriverManagerConnectionPool.getConnection();
+	    try {
+	      conn = DriverManagerConnectionPool.getConnection();
 
-      String query = null;
-      ResultSet result = null;
+	      String query = "SELECT AnnoOffertaFormativa FROM offertaformativa WHERE AnnoOffertaFormativa=?";
+	      ps = conn.prepareStatement(query);
+	      ps.setString(1, of.getAnnoOffertaFormativa());
+	      
+	      result = ps.executeQuery();
+	      
 
-      query = "UPDATE offertaformativa SET visibilita=? WHERE AnnoOffertaFormativa=?";
-      ps = conn.prepareStatement(query);
-
-      ps.setBoolean(1, of.isVisibilita());
-      ps.setString(2, of.getAnnoOffertaFormativa());
-
-      int i = ps.executeUpdate();
-      if (i != 0) {
-        return true;
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-
+	      if (result.next()) {
+	        query = "UPDATE offertaformativa SET AnnoOffertaFormativam=?,visibilita=?";
+	        ps = conn.prepareStatement(query);
+	        
+	        ps.setString(1, of.getAnnoOffertaFormativa());
+	        ps.setBoolean(2, of.isVisibilita());
+	      
+	        int i = ps.executeUpdate();
+	        if (i != 0) {
+	          return true;
+	        }
+	      }else{
+	    	  query = "INSERT INTO offertaformativa(AnnoOffertaFormativa, visibilita) VALUES (?, ?)";
+	          ps = conn.prepareStatement(query);
+	      
+	          ps.setString(1, of.getAnnoOffertaFormativa());
+		      ps.setBoolean(2, of.isVisibilita());
+	      
+	          int i = ps.executeUpdate();
+	          if (i != 0) {
+	              return true;
+	            }
+	      }
+	    } catch (SQLException e) {
+	      e.printStackTrace();
+	    }
     return false;
   }
 
@@ -93,7 +110,7 @@ public class OffertaFormativaBeanDao {
 
       String query = "SELECT * FROM offertaformativa WHERE AnnoOffertaFormativa= ?";
       ps = conn.prepareStatement(query);
-      ps.setString(1, of.getAnnoOffertaFormativa());
+      ps.setString(1, offertaformativa);
 
       ResultSet items = ps.executeQuery();
 

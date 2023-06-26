@@ -54,14 +54,17 @@ public class CurriculumBeanDao {
 
     Connection conn = null;
     PreparedStatement ps = null;
+    ResultSet result = null;
 
     try {
       conn = DriverManagerConnectionPool.getConnection();
 
-      String query = null;
-      ResultSet result = ps
-          .executeQuery("SELECT IDCurriculum FROM curriculum WHERE IDCurriculum='" 
-              + cb.getIdCurriculum() + "'");
+      String query = "SELECT IDCurriculum FROM curriculum WHERE IDCurriculum=?";
+      ps = conn.prepareStatement(query);
+      ps.setInt(1, cb.getIdCurriculum());
+      
+      result = ps.executeQuery();
+      
 
       if (result.next()) {
         query = "UPDATE curriculum SET IDCurriculum=?,Nome=?,"
@@ -76,6 +79,18 @@ public class CurriculumBeanDao {
         if (i != 0) {
           return true;
         }
+      }else{
+    	  query = "INSERT INTO curriculum(IDCurriculum, Nome, IdCorsoDiLaurea) VALUES (?, ?, ?)";
+          ps = conn.prepareStatement(query);
+      
+          ps.setInt(1, cb.getIdCurriculum());
+          ps.setString(2, cb.getNomeCurriculum());
+          ps.setInt(3, cb.getIdCorsoDiLaurea());
+      
+          int i = ps.executeUpdate();
+          if (i != 0) {
+              return true;
+            }
       }
     } catch (SQLException e) {
       e.printStackTrace();

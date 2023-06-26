@@ -53,33 +53,52 @@ public class GruppoEsamiOpzionaliBeanDao {
    * @throws IOException eccezione lanciata su I/O
    */
   public synchronized boolean doSaveOrUpdate(GruppoEsamiOpzionaliBean gb) throws IOException {
-    Connection conn = null;
-    PreparedStatement ps = null;
+	  Connection conn = null;
+	   PreparedStatement ps = null;
+	   ResultSet result = null;
 
-    try {
-      conn = DriverManagerConnectionPool.getConnection();
+	   try {
+	      conn = DriverManagerConnectionPool.getConnection();
+	      String query = "SELECT CodiceGEop FROM gruppoesamiopzionali WHERE CodiceGEop=?";
+	      ps = conn.prepareStatement(query);
+	      ps.setInt(1, gb.getCodiceGeOp());
+	      
+	      
+	      result = ps.executeQuery();
 
-      String query = null;
+	      if (result.next()) {
+	    	  query = "UPDATE gruppoesamiopzionali SET Anno=?,IdCurriculum=?, TotCFU=? WHERE CodiceGEop=?";
+	          ps = conn.prepareStatement(query);
 
-      query = "UPDATE gruppoesamiopzionali SET Anno=?, TotCFU=?, IDCurriculum=? WHERE CodiceGEOp=?";
-      ps = conn.prepareStatement(query);
+	          ps.setInt(1, gb.getAnno());
+	          ps.setInt(2, gb.getIdCurriculum());
+	          ps.setInt(3, gb.getCodiceGeOp());
+	          ps.setInt(4, gb.getTotCfu());
 
-      ps.setInt(1, gb.getAnno());
-      ps.setInt(2, gb.getTotCfu());
-      ps.setInt(3, gb.getIdCurriculum());
-      ps.setInt(4, gb.getCodiceGeOp());
-
-      int i = ps.executeUpdate();
-      if (i != 0) {
-        return true;
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-
-    return false;
-  }
-
+	        int i = ps.executeUpdate();
+	        if (i != 0) {
+	          return true;
+	        }
+	      }else{
+	    	  query = "INSERT INTO gruppoesamiopzionali(CodiceGEOp, Anno, IdCurriculum,TotCFU) VALUES (?, ?, ?,?)";
+	          ps = conn.prepareStatement(query);
+	          
+	          ps.setInt(1, gb.getCodiceGeOp());
+	          ps.setInt(2, gb.getAnno());
+	          ps.setInt(3, gb.getIdCurriculum());
+	          ps.setInt(4, gb.getTotCfu());
+	         
+	      
+	          int i = ps.executeUpdate();
+	          if (i != 0) {
+	              return true;
+	            }
+	      }
+	    } catch (SQLException e) {
+	      e.printStackTrace();
+	    }
+	    return false;
+	  }
   /**
    * Metodo che ritorna un gruppo obbligatorio data la sua chiave.
    * @param codiceGeOp codice del gruppo
@@ -454,11 +473,11 @@ public class GruppoEsamiOpzionaliBeanDao {
 
       String query = null;
 
-      query = "UPDATE gruppoesamiopzionali SET  TotCFU=? WHERE CodiceGEOp=?";
+      query = "UPDATE gruppoesamiopzionali SET TotCFU=? WHERE CodiceGEOp=?";
       ps = conn.prepareStatement(query);
 
-      ps.setInt(1, codiceGruppo);
-      ps.setInt(2, numeroCfu);
+      ps.setInt(1, numeroCfu);
+      ps.setInt(2, codiceGruppo);
 
       int i = ps.executeUpdate();
       if (i != 0) {

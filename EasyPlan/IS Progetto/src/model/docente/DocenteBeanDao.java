@@ -64,42 +64,76 @@ public class DocenteBeanDao {
    * @param codiceEsame codice esame per legare un esame ad un docente
    * @throws IOException eccezione lanciata su problemi di I/0
    */
-  public synchronized void doSaveOrUpdate(DocenteBean db, int codiceEsame) throws IOException {
+  public synchronized boolean doSaveOrUpdate(DocenteBean db, int codiceEsame) throws IOException {
     Connection conn = null;
     PreparedStatement ps = null;
+    ResultSet result = null;
 
     try {
       conn = DriverManagerConnectionPool.getConnection();
 
-      String query = null;
-      query = "UPDATE docente SET Nome = ?, Cognome = ?,"
-          + " IndirizzoPaginaWeb = ? WHERE CodiceDocente=?";
-
+      String query = "SELECT IDCurriculum FROM curriculum WHERE IDCurriculum=?";
       ps = conn.prepareStatement(query);
+      ps.setInt(1, db.getCodiceDocente());
+      
+      result = ps.executeQuery();
+      
+      if (result.next()) {
+          query = "UPDATE docente SET Nome = ?, Cognome = ?,"
+                  + " IndirizzoPaginaWeb = ? WHERE CodiceDocente=?";
+          ps = conn.prepareStatement(query);
 
-      ps.setString(1, db.getNome());
-      ps.setString(2, db.getCognome());
-      ps.setString(3, db.getIndirizzoPaginaWeb());
-      ps.setInt(4, db.getCodiceDocente());
+          ps.setString(1, db.getNome());
+          ps.setString(2, db.getCognome());
+          ps.setString(3, db.getIndirizzoPaginaWeb());
+          ps.setInt(4, db.getCodiceDocente());
+          int y = ps.executeUpdate();
 
-      int y = ps.executeUpdate();
+          if (y != 0) {
+            query = "UPDATE insegnamento SET classe = ? WHERE CodiceDocente=? AND CodiceEsame=? ";
+            
+            ps = conn.prepareStatement(query);
 
-      if (y != 0) {
-        query = "UPDATE insegnamento SET classe = ? WHERE CodiceDocente=? AND CodiceEsame=? ";
+            ps.setString(1, db.getInsegnamento());
+            ps.setInt(2, db.getCodiceDocente());
+            ps.setInt(3, codiceEsame);
+
+            int i = ps.executeUpdate();
+            if (i != 0) {
+              return true;
+            }
+          }
+          
+        }else{
+      	  query = "INSERT INTO docente(Nome, Cognome, IndirizzoPaginaWeb,CodiceDocente) VALUES (?, ?, ?, ?)";
+            ps = conn.prepareStatement(query);
         
-        ps = conn.prepareStatement(query);
+            ps.setString(1, db.getNome());
+            ps.setString(2, db.getCognome());
+            ps.setString(3, db.getIndirizzoPaginaWeb());
+            ps.setInt(4, db.getCodiceDocente());
+        
+            int i = ps.executeUpdate();
+            if (i != 0) {
+                query = "INSERT INTO insegnamento(CodiceDocente,CodiceEsame,classe) values (?,?,?)";
+                ps = conn.prepareStatement(query);
 
-        ps.setString(1, db.getInsegnamento());
-        ps.setInt(2, db.getCodiceDocente());
-        ps.setInt(3, codiceEsame);
+                ps.setInt(1, db.getCodiceDocente());
+                ps.setInt(2, codiceEsame);
+                ps.setString(3, db.getInsegnamento());
 
-        y = ps.executeUpdate();
+                int y = ps.executeUpdate();
+
+                if (y != 0) {
+                    return true;
+                  }
+              }
+            
+        }
+      } catch (SQLException e) {
+        e.printStackTrace();
       }
-
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    
+      return false;
   }
 
   /**
@@ -142,20 +176,30 @@ public class DocenteBeanDao {
   public synchronized boolean doDelete(int codiceDocente) throws IOException {
     Connection conn = null;
     PreparedStatement ps = null;
-
+    
+    
     try {
-      conn = DriverManagerConnectionPool.getConnection();
+        conn = DriverManagerConnectionPool.getConnection();
 
-      String query = "DELETE FROM docente WHERE CodiceDocente=?";
+        String query = "DELETE FROM docente WHERE CodiceDocente=?";
+        ps = conn.prepareStatement(query);
+        ps.setInt(1, codiceDocente);
+        
+        int y = ps.executeUpdate();
+        
 
-      ps = conn.prepareStatement(query);
-      ps.setInt(1, codiceDocente);
+        if (y!=0) {
+          query = "DELETE FROM insegnamento WHERE CodiceDocente=?";
+          ps = conn.prepareStatement(query);
 
-      int i = ps.executeUpdate();
-      if (i != 0) {
-        return true;
-      }
-    } catch (SQLException e) {
+          ps.setInt(1, codiceDocente);
+
+          int i = ps.executeUpdate();
+          if (i != 0) {
+            return true;
+          }
+        }
+    }catch (SQLException e) {
       e.printStackTrace();
     }
     return false;

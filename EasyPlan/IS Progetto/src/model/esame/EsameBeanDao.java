@@ -57,30 +57,53 @@ public class EsameBeanDao {
   public synchronized boolean doSaveOrUpdate(EsameBean eb) throws IOException {
     Connection conn = null;
     PreparedStatement ps = null;
+    ResultSet result = null;
 
     try {
       conn = DriverManagerConnectionPool.getConnection();
-
-      String query = "UPDATE esame SET Nome=?, CFU=?, OreLezione=?, "
-          + "Semestre=?, Descrizione = ? WHERE CodiceEsame=?";
+      String query = "SELECT CodiceEsame FROM esame WHERE CodiceEsame=?";
       ps = conn.prepareStatement(query);
+      ps.setInt(1, eb.getCodiceEsame());
+      
+      
+      result = ps.executeQuery();
 
-      ps.setString(1, eb.getNome());
-      ps.setInt(2, eb.getCfu());
-      ps.setInt(3, eb.getOreLezione());
-      ps.setString(4, eb.getSemestre());
-      ps.setString(5, eb.getDescrizione());
-      ps.setInt(6, eb.getCodiceEsame());
+      if (result.next()) {
+    	   query = "UPDATE esame SET Nome=?, CFU=?, OreLezione=?, "
+    	          + "Semestre=?, Descrizione = ? WHERE CodiceEsame=?";
+    	      ps = conn.prepareStatement(query);
 
-      int i = ps.executeUpdate();
-      if (i != 0) {
-        return true;
+    	      ps.setString(1, eb.getNome());
+    	      ps.setInt(2, eb.getCfu());
+    	      ps.setInt(3, eb.getOreLezione());
+    	      ps.setString(4, eb.getSemestre());
+    	      ps.setString(5, eb.getDescrizione());
+    	      ps.setInt(6, eb.getCodiceEsame());
+
+        int i = ps.executeUpdate();
+        if (i != 0) {
+          return true;
+        }
+      }else{
+    	  query = "INSERT INTO esame(CodiceEsame, Nome, CFU,OreLezione,Semestre,Descrizione) VALUES (?, ?, ?,?,?,?)";
+          ps = conn.prepareStatement(query);
+          
+          ps.setInt(1, eb.getCodiceEsame());
+          ps.setString(2, eb.getNome());
+	      ps.setInt(3, eb.getCfu());
+	      ps.setInt(4, eb.getOreLezione());
+	      ps.setString(5, eb.getSemestre());
+	      ps.setString(6, eb.getDescrizione());
+	      
+      
+          int i = ps.executeUpdate();
+          if (i != 0) {
+              return true;
+            }
       }
-
     } catch (SQLException e) {
       e.printStackTrace();
     }
-
     return false;
   }
 
@@ -88,35 +111,53 @@ public class EsameBeanDao {
    * Metodo che restituisce un esame dato il suo codice.
    * @param codiceEsame codice dell'esame
    * @return esame
+ * @throws SQLException 
    */
   public synchronized EsameBean doRetrieveByKey(int codiceEsame) {
-    EsameBean eb = new EsameBean();
-    Connection conn = null;
-    PreparedStatement ps = null;
+	    EsameBean eb = new EsameBean();
+	    Connection conn = null;
+	    PreparedStatement ps = null;
 
-    try {
-      conn = DriverManagerConnectionPool.getConnection();
+	    try {
+	        conn = DriverManagerConnectionPool.getConnection();
 
-      String query = "SELECT * FROM esame WHERE CodiceEsame= ?";
-      ps = conn.prepareStatement(query);
-      ps.setInt(1, codiceEsame);
+	        String query = "SELECT * FROM esame WHERE CodiceEsame= ?";
+	        ps = conn.prepareStatement(query);
+	        ps.setInt(1, codiceEsame);
 
-      ResultSet items = ps.executeQuery();
+	        ResultSet items = ps.executeQuery();
 
-      while (items.next()) {
-        eb.setCodiceEsame(codiceEsame);
-        eb.setNome(items.getString("Nome"));
-        eb.setCfu(items.getInt("CFU"));
-        eb.setOreLezione(items.getInt("OreLezione"));
-        eb.setSemestre(items.getString("Semestre"));
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+	        while (items.next()) {
+	            eb.setCodiceEsame(codiceEsame);
+	            eb.setNome(items.getString("Nome"));
+	            eb.setCfu(items.getInt("CFU"));
+	            eb.setOreLezione(items.getInt("OreLezione"));
+	            eb.setSemestre(items.getString("Semestre"));
+	            eb.setDescrizione(items.getString("Descrizione"));
+	        }
 
-    return eb;
-  }
+	    } catch (SQLException e) {
+	        // Eccezione personalizzata che estende RuntimeException
+	        throw new RuntimeException("Errore durante il recupero dell'EsameBean.", e);
+	    } finally {
+	        // Chiusura delle risorse
+	        try {
+	            if (ps != null)
+	                ps.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
 
+	        try {
+	            if (conn != null)
+	                conn.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return eb;
+	}
   /**
    * Metodo che restituisce tutti gli esami.
    * @return lista di esami
