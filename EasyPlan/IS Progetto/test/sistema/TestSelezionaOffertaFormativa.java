@@ -10,7 +10,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class TestSelezionaOffertaFormativa {
 
-	public static final String PATH= "chromedriver/" + "chromedriver.exe";
+	  static SelezionaChromeDriverSO so = new SelezionaChromeDriverSO();
+	  public static final String PATH= so.selezionaChromeDriver();
 	  public static final String URL="http://localhost:8080/IS_Progetto/Homepage.html";
 	  
 	  //TC_1.1_1

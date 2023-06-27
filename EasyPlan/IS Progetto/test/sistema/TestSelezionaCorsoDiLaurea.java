@@ -9,9 +9,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class TestSelezionaCorsoDiLaurea {
-
-	  public static final String PATH= "chromedriver/" + "chromedriver.exe";
-	  public static final String URL="http://localhost:8080/IS_Progetto/Homepage.html";
+	
+	 static SelezionaChromeDriverSO so = new SelezionaChromeDriverSO();
+	 public static final String PATH= so.selezionaChromeDriver();
+	 public static final String URL="http://localhost:8080/IS_Progetto/Homepage.html";
 	  
 	  
 	  

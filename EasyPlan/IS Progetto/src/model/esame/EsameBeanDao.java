@@ -190,6 +190,21 @@ public class EsameBeanDao {
       }
     } catch (SQLException e) {
       e.printStackTrace();
+    }finally {
+        // Chiusura delle risorse
+        try {
+            if (ps != null)
+                ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if (conn != null)
+                conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     return lista;
@@ -274,6 +289,21 @@ public class EsameBeanDao {
       }
     } catch (SQLException e) {
       e.printStackTrace();
+    }finally {
+        // Chiusura delle risorse
+        try {
+            if (ps != null)
+                ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if (conn != null)
+                conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     return lista;
@@ -328,6 +358,21 @@ public class EsameBeanDao {
       }
     } catch (SQLException e) {
       e.printStackTrace();
+    }finally {
+        // Chiusura delle risorse
+        try {
+            if (ps != null)
+                ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if (conn != null)
+                conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     return lista;
@@ -354,6 +399,21 @@ public class EsameBeanDao {
       codiceEsame = items.getInt("massimoID");
     } catch (SQLException e) {
       e.printStackTrace();
+    }finally {
+        // Chiusura delle risorse
+        try {
+            if (ps != null)
+                ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if (conn != null)
+                conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     return codiceEsame;
   }

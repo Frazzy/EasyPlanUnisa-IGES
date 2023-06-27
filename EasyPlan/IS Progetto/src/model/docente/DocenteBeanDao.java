@@ -163,6 +163,21 @@ public class DocenteBeanDao {
       }
     } catch (SQLException e) {
       e.printStackTrace();
+    }finally {
+        // Chiusura delle risorse
+        try {
+            if (ps != null)
+                ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if (conn != null)
+                conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     return db;
   }
@@ -255,6 +270,21 @@ public class DocenteBeanDao {
       }
     } catch (SQLException e) {
       e.printStackTrace();
+    }finally {
+        // Chiusura delle risorse
+        try {
+            if (ps != null)
+                ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if (conn != null)
+                conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     return list;
   }
@@ -310,6 +340,21 @@ public class DocenteBeanDao {
       }
     } catch (SQLException e) {
       e.printStackTrace();
+    }finally {
+        // Chiusura delle risorse
+        try {
+            if (ps != null)
+                ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if (conn != null)
+                conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     return list;
   }
@@ -335,6 +380,21 @@ public class DocenteBeanDao {
       codiceDocente = items.getInt("massimoID");
     } catch (SQLException e) {
       e.printStackTrace();
+    }finally {
+        // Chiusura delle risorse
+        try {
+            if (ps != null)
+                ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if (conn != null)
+                conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     return codiceDocente;
   }

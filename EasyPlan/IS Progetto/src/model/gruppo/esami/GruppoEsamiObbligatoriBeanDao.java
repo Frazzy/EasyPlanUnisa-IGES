@@ -124,6 +124,21 @@ public class GruppoEsamiObbligatoriBeanDao {
       }
     } catch (SQLException e) {
       e.printStackTrace();
+    }finally {
+        // Chiusura delle risorse
+        try {
+            if (ps != null)
+                ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if (conn != null)
+                conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     return gb;
@@ -158,6 +173,21 @@ public class GruppoEsamiObbligatoriBeanDao {
       }
     } catch (SQLException e) {
       e.printStackTrace();
+    }finally {
+        // Chiusura delle risorse
+        try {
+            if (ps != null)
+                ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if (conn != null)
+                conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     return lista;
@@ -234,6 +264,21 @@ public class GruppoEsamiObbligatoriBeanDao {
       }
     } catch (SQLException e) {
       e.printStackTrace();
+    }finally {
+        // Chiusura delle risorse
+        try {
+            if (ps != null)
+                ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if (conn != null)
+                conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     return lista;
@@ -283,6 +328,21 @@ public class GruppoEsamiObbligatoriBeanDao {
       }
     } catch (SQLException e) {
       e.printStackTrace();
+    }finally {
+        // Chiusura delle risorse
+        try {
+            if (ps != null)
+                ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if (conn != null)
+                conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     return lista;
@@ -446,6 +506,21 @@ public class GruppoEsamiObbligatoriBeanDao {
       codiceDocente = items.getInt("massimoID");
     } catch (SQLException e) {
       e.printStackTrace();
+    }finally {
+        // Chiusura delle risorse
+        try {
+            if (ps != null)
+                ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if (conn != null)
+                conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     return codiceDocente;
   }

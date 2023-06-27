@@ -9,8 +9,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 
 
+
 	public class TestLogin {
-		public static final String PATH= "chromedriver/" + "chromedriver.exe";
+		
+	static SelezionaChromeDriverSO so = new SelezionaChromeDriverSO();
+	public static final String PATH= so.selezionaChromeDriver();
 	public static final String URL="http://localhost:8080/IS_Progetto/Homepage.html";
 
 
@@ -72,7 +75,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 	      
 	      driver.findElement(By.xpath("//*[@id=\"username\"]")).click();
 	      
-	      driver.findElement(By.xpath("//*[@id=\"username\"]")).sendKeys("ad£min");
+	      driver.findElement(By.xpath("//*[@id=\"username\"]")).sendKeys("adï¿½min");
 	      
 	      driver.findElement(By.xpath("//*[@id=\"password\"]")).click();
 	      
@@ -238,7 +241,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 	      
 	      driver.findElement(By.xpath("//*[@id=\"password\"]")).click();
 	      
-	      driver.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys("admi£n");
+	      driver.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys("admiï¿½n");
 	      
 	      driver.findElement(By.xpath(" /html/body/div[1]/div/form/div[3]/button")).click();
 	     
@@ -401,7 +404,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 		      
 		      driver.findElement(By.xpath("//*[@id=\"password\"]")).click();
 		      
-		      driver.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys("admi£n");
+		      driver.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys("admiï¿½n");
 		      
 		      driver.findElement(By.xpath(" /html/body/div[1]/div/form/div[3]/button")).click();
 		     
