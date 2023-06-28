@@ -68,6 +68,7 @@ public class SelectionOffertaServlet extends HttpServlet {
           request.setAttribute("offertaFormativa", of);
           session.setAttribute("errore", "CFU minimi dei gruppi opzionali  non rispettati");
           rd.forward(request, response);
+          return; //fa in maniera che dopo il controllo la logica della servlet si fermi
         }
 
         if (op1.size() == 0 && op2.size() == 0) {
@@ -157,6 +158,7 @@ public class SelectionOffertaServlet extends HttpServlet {
               
               RequestDispatcher rd = request.getRequestDispatcher("FormulazionePiano.jsp");
               rd.forward(request, response);
+              return; //fa in maniera che dopo il controllo la logica della servlet si fermi
             }
           }
         }
@@ -196,6 +198,7 @@ public class SelectionOffertaServlet extends HttpServlet {
 
               RequestDispatcher rd = request.getRequestDispatcher("FormulazionePiano.jsp");
               rd.forward(request, response);
+              return;
             }
           }
         }
@@ -234,6 +237,7 @@ public class SelectionOffertaServlet extends HttpServlet {
 
           RequestDispatcher rd = request.getRequestDispatcher("PianoDiStudi.jsp");
           rd.forward(request, response);
+          
         } else if (check1 == true && check2 == true && pass == false) {
           session.removeAttribute("o1");
           session.setAttribute("o1", op1);

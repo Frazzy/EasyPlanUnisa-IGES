@@ -15,22 +15,20 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry kind="lib" path="/Users/francescoaurilio/Desktop/Selenium/client-combined-3.141.59-sources.jar"/>
-	<classpathentry kind="lib" path="/Users/francescoaurilio/Desktop/Selenium/client-combined-3.141.59.jar"/>
-	<classpathentry kind="lib" path="/Users/francescoaurilio/Desktop/Selenium/libs/commons-exec-1.3.jar"/>
-	<classpathentry kind="lib" path="/Users/francescoaurilio/Desktop/Selenium/libs/guava-25.0-jre.jar"/>
-	<classpathentry kind="lib" path="/Users/francescoaurilio/Desktop/Selenium/libs/okhttp-3.11.0.jar"/>
-	<classpathentry kind="lib" path="/Users/francescoaurilio/Desktop/Selenium/libs/okio-1.14.0.jar"/>
-	<classpathentry kind="lib" path="/Users/francescoaurilio/Desktop/jar_files/mockito-core-5.2.0.jar"/>
-	<classpathentry kind="lib" path="/Users/francescoaurilio/Desktop/jar_files/mockito-testng-0.5.0.jar"/>
-	<classpathentry kind="lib" path="/Users/francescoaurilio/Desktop/jar_files/jcommander-1.78.jar"/>
-	<classpathentry kind="lib" path="/Users/francescoaurilio/Desktop/jar_files/jquery-3.5.1.jar"/>
-	<classpathentry kind="lib" path="/Users/francescoaurilio/Desktop/jar_files/jsr305-3.0.1.jar"/>
-	<classpathentry kind="lib" path="/Users/francescoaurilio/Desktop/jar_files/objenesis-3.3.jar"/>
-	<classpathentry kind="lib" path="/Users/francescoaurilio/Desktop/jar_files/slf4j-api-1.7.32.jar"/>
-	<classpathentry kind="lib" path="/Users/francescoaurilio/Desktop/jar_files/testng-7.5.jar"/>
-	<classpathentry kind="lib" path="/Users/francescoaurilio/Desktop/jar_files/byte-buddy-agent-1.14.1.jar"/>
-	<classpathentry kind="lib" path="/Users/francescoaurilio/Desktop/jar_files/byte-buddy-1.14.1.jar"/>
-	<classpathentry kind="lib" path="/Users/francescoaurilio/Desktop/jar_files (1)/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="/Users/francescoaurilio/git/EasyPlanUnisa-IGES/lib/client-combined-3.141.59-sources.jar"/>
+	<classpathentry kind="lib" path="/Users/francescoaurilio/git/EasyPlanUnisa-IGES/lib/client-combined-3.141.59.jar"/>
+	<classpathentry kind="lib" path="/Users/francescoaurilio/git/EasyPlanUnisa-IGES/lib/commons-exec-1.3.jar"/>
+	<classpathentry kind="lib" path="/Users/francescoaurilio/git/EasyPlanUnisa-IGES/lib/guava-25.0-jre.jar"/>
+	<classpathentry kind="lib" path="/Users/francescoaurilio/git/EasyPlanUnisa-IGES/lib/okhttp-3.11.0.jar"/>
+	<classpathentry kind="lib" path="/Users/francescoaurilio/git/EasyPlanUnisa-IGES/lib/okio-1.14.0.jar"/>
+	<classpathentry kind="lib" path="/Users/francescoaurilio/git/EasyPlanUnisa-IGES/lib/mockito-core-5.2.0.jar"/>
+	<classpathentry kind="lib" path="/Users/francescoaurilio/git/EasyPlanUnisa-IGES/lib/mockito-testng-0.5.0.jar"/>
+	<classpathentry kind="lib" path="/Users/francescoaurilio/git/EasyPlanUnisa-IGES/lib/jquery-3.5.1.jar"/>
+	<classpathentry kind="lib" path="/Users/francescoaurilio/git/EasyPlanUnisa-IGES/lib/jsr305-3.0.1.jar"/>
+	<classpathentry kind="lib" path="/Users/francescoaurilio/git/EasyPlanUnisa-IGES/lib/objenesis-3.3.jar"/>
+	<classpathentry kind="lib" path="/Users/francescoaurilio/git/EasyPlanUnisa-IGES/lib/slf4j-api-1.7.32.jar"/>
+	<classpathentry kind="lib" path="/Users/francescoaurilio/git/EasyPlanUnisa-IGES/lib/testng-7.5.jar"/>
+	<classpathentry kind="lib" path="/Users/francescoaurilio/git/EasyPlanUnisa-IGES/lib/byte-buddy-agent-1.14.1.jar"/>
+	<classpathentry kind="lib" path="/Users/francescoaurilio/git/EasyPlanUnisa-IGES/lib/byte-buddy-1.14.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

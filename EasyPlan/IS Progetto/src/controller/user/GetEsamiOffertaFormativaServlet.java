@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.corso.di.laurea.CorsoDiLaureaBean;
 import model.corso.di.laurea.CorsoDiLaureaBeanDao;
@@ -45,6 +46,13 @@ public class GetEsamiOffertaFormativaServlet extends HttpServlet {
    */
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+	  
+	HttpSession session = request.getSession(false); // Ottieni la sessione esistente o null se non esiste
+
+	if (session != null) {
+	   session.invalidate(); // Resettare la sessione e rimuovere tutte le variabili di sessione
+	 }
+	
     String nomeOfferta = request.getParameter("nomeOfferta");
     int laurea = Integer.parseInt(request.getParameter("laurea"));
     int curricula = Integer.parseInt(request.getParameter("curricula"));
@@ -72,6 +80,7 @@ public class GetEsamiOffertaFormativaServlet extends HttpServlet {
     // carico la laurea che ho selezionato precedentemente
     lau.add(lauB.doRetrieveByKey(laurea));
     of.setLauree(lau);
+   
 
     try {
       // inserisco i curricula dell'offerta formativa nel corso di laurea
@@ -125,7 +134,7 @@ public class GetEsamiOffertaFormativaServlet extends HttpServlet {
     RequestDispatcher rd = request.getRequestDispatcher("FormulazionePiano.jsp");
     request.setAttribute("offertaFormativa", of);
     rd.forward(request, response);
-
+   
   }
 
   /**

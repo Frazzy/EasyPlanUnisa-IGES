@@ -67,7 +67,7 @@ public class Test_GetEsamiOffertaFormativaServlet extends GetEsamiOffertaFormati
         Assertions.assertEquals(1, offertaFormativa.getLauree().get(0).getCurricula().get(0).getIdCurriculum());
         verify(requestDispatcher).forward(request, response);
     }
-    
+   
     //TC_1.3.2
     @Test
     void testDoPost2() throws ServletException, IOException, ClassNotFoundException, SQLException {
