@@ -35,6 +35,7 @@ public class Test_SelectionOffertaServlet extends SelectionOffertaServlet {
 	ArrayList<GruppoEsamiOpzionaliBean> opzionali1List = new ArrayList<GruppoEsamiOpzionaliBean>();
 	ArrayList<GruppoEsamiOpzionaliBean> opzionali2List = new ArrayList<GruppoEsamiOpzionaliBean>();
 	ArrayList<GruppoEsamiOpzionaliBean> opzionali3List = new ArrayList<GruppoEsamiOpzionaliBean>();
+	ArrayList<EsameBean> esamiLib= new ArrayList<>();
 	GruppoEsamiOpzionaliMock opzionali1Mock= new GruppoEsamiOpzionaliMock();
 	GruppoEsamiOpzionaliMock opzionali2Mock= new GruppoEsamiOpzionaliMock();
 	GruppoEsamiOpzionaliMock opzionali3Mock= new GruppoEsamiOpzionaliMock();
@@ -68,7 +69,7 @@ public class Test_SelectionOffertaServlet extends SelectionOffertaServlet {
 	        obbligatori3List.add(obbligatori3Mock);
 	
 	        opzionali3Mock.setTotCfu(24);
-
+	        
 	        opzionali3List.add(opzionali3Mock);
 	       
 	        // Impostazione del comportamento del mock di HttpSession
@@ -82,7 +83,122 @@ public class Test_SelectionOffertaServlet extends SelectionOffertaServlet {
 	      	when(sessionMock.getAttribute("o1")).thenReturn(opzionali1List);
 	      	when(sessionMock.getAttribute("o2")).thenReturn(opzionali2List);
 	      	when(sessionMock.getAttribute("o3")).thenReturn(opzionali3List);
+	      	when(sessionMock.getAttribute("libera")).thenReturn(esamiLib);
+	      	
+	    	when(opzionali3List.get(0).getEsami().get(0).getCfu()).thenReturn(23); 
 	        
+	        // Impostazione del comportamento del mock di RequestDispatcher
+	        when(request.getRequestDispatcher("FormulazionePiano.jsp")).thenReturn(requestDispatcherMock);
+	        // Chiamata del metodo doGet() della servlet
+	        doPost(request, response);
+	        // Verifica dei comportamenti attesi
+	        // Esempio: verifica che il metodo forward sia stato chiamato sul mock di RequestDispatcher
+	        verify(requestDispatcherMock).forward(request, response);
+	    }
+	    
+	    //TC_1.4.2
+	    @Test
+	    public void testDoPostTri2() throws ServletException, IOException {
+		 
+	      	obbligatori1List.add(obbligatori1Mock);
+	        obbligatori2List.add(obbligatori2Mock); 
+	        obbligatori3List.add(obbligatori3Mock);
+	
+	        opzionali3Mock.setTotCfu(24);
+	        
+	        opzionali3List.add(opzionali3Mock);
+	       
+	        // Impostazione del comportamento del mock di HttpSession
+	      	when(request.getSession(true)).thenReturn(sessionMock);
+	      	// Impostazione degli attributi della sessione
+	      	when(request.getParameter("metodo")).thenReturn("fine");
+	      	when(sessionMock.getAttribute("offertaFormativa")).thenReturn(offertaFormativaMock);
+	      	when(sessionMock.getAttribute("obbligatori1")).thenReturn(obbligatori1List);
+	      	when(sessionMock.getAttribute("obbligatori2")).thenReturn(obbligatori2List);
+	      	when(sessionMock.getAttribute("obbligatori3")).thenReturn(obbligatori3List);
+	      	when(sessionMock.getAttribute("o1")).thenReturn(opzionali1List);
+	      	when(sessionMock.getAttribute("o2")).thenReturn(opzionali2List);
+	      	when(sessionMock.getAttribute("o3")).thenReturn(opzionali3List);
+	      	when(sessionMock.getAttribute("libera")).thenReturn(esamiLib);
+
+	        
+	      	when(sessionMock.getAttribute("totalecfuSelLib")).thenReturn(11);
+	        
+	        
+	        // Impostazione del comportamento del mock di RequestDispatcher
+	        when(request.getRequestDispatcher("FormulazionePiano.jsp")).thenReturn(requestDispatcherMock);
+	        // Chiamata del metodo doGet() della servlet
+	        doPost(request, response);
+	        // Verifica dei comportamenti attesi
+	        // Esempio: verifica che il metodo forward sia stato chiamato sul mock di RequestDispatcher
+	        verify(requestDispatcherMock).forward(request, response);
+	    }
+	    
+	    //TC_1.4.3
+	    @Test
+	    public void testDoPostTri3() throws ServletException, IOException {
+		 
+	      	obbligatori1List.add(obbligatori1Mock);
+	        obbligatori2List.add(obbligatori2Mock); 
+	        obbligatori3List.add(obbligatori3Mock);
+	
+	        opzionali3Mock.setTotCfu(24);
+	        
+	        opzionali3List.add(opzionali3Mock);
+	       
+	        // Impostazione del comportamento del mock di HttpSession
+	      	when(request.getSession(true)).thenReturn(sessionMock);
+	      	// Impostazione degli attributi della sessione
+	      	when(request.getParameter("metodo")).thenReturn("fine");
+	      	when(sessionMock.getAttribute("offertaFormativa")).thenReturn(offertaFormativaMock);
+	      	when(sessionMock.getAttribute("obbligatori1")).thenReturn(obbligatori1List);
+	      	when(sessionMock.getAttribute("obbligatori2")).thenReturn(obbligatori2List);
+	      	when(sessionMock.getAttribute("obbligatori3")).thenReturn(obbligatori3List);
+	      	when(sessionMock.getAttribute("o1")).thenReturn(opzionali1List);
+	      	when(sessionMock.getAttribute("o2")).thenReturn(opzionali2List);
+	      	when(sessionMock.getAttribute("o3")).thenReturn(opzionali3List);
+	      	when(sessionMock.getAttribute("libera")).thenReturn(esamiLib);
+
+	        
+	      	when(sessionMock.getAttribute("totalecfuSelLib")).thenReturn(11);
+	        when(opzionali3List.get(0).getEsami().get(0).getCfu()).thenReturn(26); 
+	        
+	        // Impostazione del comportamento del mock di RequestDispatcher
+	        when(request.getRequestDispatcher("FormulazionePiano.jsp")).thenReturn(requestDispatcherMock);
+	        // Chiamata del metodo doGet() della servlet
+	        doPost(request, response);
+	        // Verifica dei comportamenti attesi
+	        // Esempio: verifica che il metodo forward sia stato chiamato sul mock di RequestDispatcher
+	        verify(requestDispatcherMock).forward(request, response);
+	    }
+	    
+	    //TC_1.4.4
+	    @Test
+	    public void testDoPostTri4() throws ServletException, IOException {
+		 
+	      	obbligatori1List.add(obbligatori1Mock);
+	        obbligatori2List.add(obbligatori2Mock); 
+	        obbligatori3List.add(obbligatori3Mock);
+	
+	        opzionali3Mock.setTotCfu(24);
+	        
+	        opzionali3List.add(opzionali3Mock);
+	       
+	        // Impostazione del comportamento del mock di HttpSession
+	      	when(request.getSession(true)).thenReturn(sessionMock);
+	      	// Impostazione degli attributi della sessione
+	      	when(request.getParameter("metodo")).thenReturn("fine");
+	      	when(sessionMock.getAttribute("offertaFormativa")).thenReturn(offertaFormativaMock);
+	      	when(sessionMock.getAttribute("obbligatori1")).thenReturn(obbligatori1List);
+	      	when(sessionMock.getAttribute("obbligatori2")).thenReturn(obbligatori2List);
+	      	when(sessionMock.getAttribute("obbligatori3")).thenReturn(obbligatori3List);
+	      	when(sessionMock.getAttribute("o1")).thenReturn(opzionali1List);
+	      	when(sessionMock.getAttribute("o2")).thenReturn(opzionali2List);
+	      	when(sessionMock.getAttribute("o3")).thenReturn(opzionali3List);
+	      	when(sessionMock.getAttribute("libera")).thenReturn(esamiLib);
+
+	        
+	      	when(sessionMock.getAttribute("totalecfuSelLib")).thenReturn(12);
 	        when(opzionali3List.get(0).getEsami().get(0).getCfu()).thenReturn(23); 
 	        
 	        // Impostazione del comportamento del mock di RequestDispatcher
@@ -94,9 +210,9 @@ public class Test_SelectionOffertaServlet extends SelectionOffertaServlet {
 	        verify(requestDispatcherMock).forward(request, response);
 	    }
 	    
-	  //TC_1.4.2
+	    //TC_1.4.5
 	    @Test
-	    public void testDoPostTri2() throws ServletException, IOException {
+	    public void testDoPostTri5() throws ServletException, IOException {
 		  
 	      	obbligatori1List.add(obbligatori1Mock);
 	        obbligatori2List.add(obbligatori2Mock); 
@@ -117,7 +233,10 @@ public class Test_SelectionOffertaServlet extends SelectionOffertaServlet {
 	      	when(sessionMock.getAttribute("o1")).thenReturn(opzionali1List);
 	      	when(sessionMock.getAttribute("o2")).thenReturn(opzionali2List);
 	      	when(sessionMock.getAttribute("o3")).thenReturn(opzionali3List);
+	      	when(sessionMock.getAttribute("libera")).thenReturn(esamiLib);
+
 	        
+	      	when(sessionMock.getAttribute("totalecfuSelLib")).thenReturn(12);
 	        when(opzionali3List.get(0).getEsami().get(0).getCfu()).thenReturn(24);
 
 	        // Impostazione del comportamento del mock di RequestDispatcher
@@ -154,6 +273,7 @@ public class Test_SelectionOffertaServlet extends SelectionOffertaServlet {
 	      	when(sessionMock.getAttribute("o1")).thenReturn(opzionali1List);
 	      	when(sessionMock.getAttribute("o2")).thenReturn(opzionali2List);
 	      	when(sessionMock.getAttribute("o3")).thenReturn(opzionali3List);
+	      	when(sessionMock.getAttribute("libera")).thenReturn(esamiLib);
 
 	        when(opzionali1List.get(0).getEsami().get(0).getCfu()).thenReturn(22);
 	             
@@ -190,6 +310,7 @@ public class Test_SelectionOffertaServlet extends SelectionOffertaServlet {
 	      	when(sessionMock.getAttribute("o1")).thenReturn(opzionali1List);
 	      	when(sessionMock.getAttribute("o2")).thenReturn(opzionali2List);
 	      	when(sessionMock.getAttribute("o3")).thenReturn(opzionali3List);
+	      	when(sessionMock.getAttribute("libera")).thenReturn(esamiLib);
 
 	       when(opzionali2List.get(0).getEsami().get(0).getCfu()).thenReturn(24);
   
@@ -204,6 +325,44 @@ public class Test_SelectionOffertaServlet extends SelectionOffertaServlet {
 	  //TC_1.5.3
 	    @Test
 	    public void testDoPostMag3() throws ServletException, IOException {
+
+	      	obbligatori1List.add(obbligatori1Mock);
+	        obbligatori2List.add(obbligatori2Mock); 
+	        obbligatori3List.add(obbligatori3Mock);
+	        
+	        opzionali1Mock.setTotCfu(28);
+	        opzionali2Mock.setTotCfu(28);
+
+	        opzionali1List.add(opzionali1Mock);
+	        opzionali2List.add(opzionali2Mock);
+
+	        // Impostazione del comportamento del mock di HttpSession
+	      	when(request.getSession(true)).thenReturn(sessionMock);
+	      	// Impostazione degli attributi della sessione
+	      	when(request.getParameter("metodo")).thenReturn("fine");
+	      	when(sessionMock.getAttribute("offertaFormativa")).thenReturn(offertaFormativaMock);
+	      	when(sessionMock.getAttribute("obbligatori1")).thenReturn(obbligatori1List);
+	      	when(sessionMock.getAttribute("obbligatori2")).thenReturn(obbligatori2List);
+	      	when(sessionMock.getAttribute("obbligatori3")).thenReturn(obbligatori3List);
+	      	when(sessionMock.getAttribute("o1")).thenReturn(opzionali1List);
+	      	when(sessionMock.getAttribute("o2")).thenReturn(opzionali2List);
+	      	when(sessionMock.getAttribute("o3")).thenReturn(opzionali3List);
+	      	when(sessionMock.getAttribute("libera")).thenReturn(esamiLib);
+
+	      	when(sessionMock.getAttribute("totalecfuSelLib")).thenReturn(11);
+  
+	        // Impostazione del comportamento del mock di RequestDispatcher
+	        when(request.getRequestDispatcher("FormulazionePiano.jsp")).thenReturn(requestDispatcherMock);
+	        // Chiamata del metodo doGet() della servlet
+	        doPost(request, response);
+	        // Verifica dei comportamenti attesi
+	        // Esempio: verifica che il metodo forward sia stato chiamato sul mock di RequestDispatcher
+	        verify(requestDispatcherMock).forward(request, response);
+	    }
+	    
+	  //TC_1.5.4
+	    @Test
+	    public void testDoPostMag4() throws ServletException, IOException {
 		  
 	      	obbligatori1List.add(obbligatori1Mock);
 	        obbligatori2List.add(obbligatori2Mock); 
@@ -226,6 +385,7 @@ public class Test_SelectionOffertaServlet extends SelectionOffertaServlet {
 	      	when(sessionMock.getAttribute("o1")).thenReturn(opzionali1List);
 	      	when(sessionMock.getAttribute("o2")).thenReturn(opzionali2List);
 	      	when(sessionMock.getAttribute("o3")).thenReturn(opzionali3List);
+	      	when(sessionMock.getAttribute("libera")).thenReturn(esamiLib);
 
 	      	when(opzionali1List.get(0).getEsami().get(0).getCfu()).thenReturn(29);
 	      	when(opzionali2List.get(0).getEsami().get(0).getCfu()).thenReturn(24);
@@ -237,44 +397,8 @@ public class Test_SelectionOffertaServlet extends SelectionOffertaServlet {
 	        // Verifica dei comportamenti attesi
 	        // Esempio: verifica che il metodo forward sia stato chiamato sul mock di RequestDispatcher
 	        verify(requestDispatcherMock).forward(request, response);
-	    }
-	  //TC_1.5.4
-	    @Test
-	    public void testDoPostMag4() throws ServletException, IOException {
-
-	      	obbligatori1List.add(obbligatori1Mock);
-	        obbligatori2List.add(obbligatori2Mock); 
-	        obbligatori3List.add(obbligatori3Mock);
-	        
-	        opzionali1Mock.setTotCfu(28);
-	        opzionali2Mock.setTotCfu(28);
-
-	        opzionali1List.add(opzionali1Mock);
-	        opzionali2List.add(opzionali2Mock);
-	        
-	        // Impostazione del comportamento del mock di HttpSession
-	      	when(request.getSession(true)).thenReturn(sessionMock);
-	      	// Impostazione degli attributi della sessione
-	      	when(request.getParameter("metodo")).thenReturn("fine");
-	      	when(sessionMock.getAttribute("offertaFormativa")).thenReturn(offertaFormativaMock);
-	      	when(sessionMock.getAttribute("obbligatori1")).thenReturn(obbligatori1List);
-	      	when(sessionMock.getAttribute("obbligatori2")).thenReturn(obbligatori2List);
-	      	when(sessionMock.getAttribute("obbligatori3")).thenReturn(obbligatori3List);
-	      	when(sessionMock.getAttribute("o1")).thenReturn(opzionali1List);
-	      	when(sessionMock.getAttribute("o2")).thenReturn(opzionali2List);
-	      	when(sessionMock.getAttribute("o3")).thenReturn(opzionali3List);
-
-	      	when(opzionali1List.get(0).getEsami().get(0).getCfu()).thenReturn(24);
-	      	when(opzionali2List.get(0).getEsami().get(0).getCfu()).thenReturn(29);
-
-	        // Impostazione del comportamento del mock di RequestDispatcher
-	        when(request.getRequestDispatcher("FormulazionePiano.jsp")).thenReturn(requestDispatcherMock);
-	        // Chiamata del metodo doGet() della servlet
-	        doPost(request, response);
-	        // Verifica dei comportamenti attesi
-	        // Esempio: verifica che il metodo forward sia stato chiamato sul mock di RequestDispatcher
-	        verify(requestDispatcherMock).forward(request, response);
-	    }
+	     }
+	    
 	  //TC_1.5.5
 	    @Test
 	    public void testDoPostMag5() throws ServletException, IOException {
@@ -288,6 +412,45 @@ public class Test_SelectionOffertaServlet extends SelectionOffertaServlet {
 
 	        opzionali1List.add(opzionali1Mock);
 	        opzionali2List.add(opzionali2Mock);
+	        
+	        // Impostazione del comportamento del mock di HttpSession
+	      	when(request.getSession(true)).thenReturn(sessionMock);
+	      	// Impostazione degli attributi della sessione
+	      	when(request.getParameter("metodo")).thenReturn("fine");
+	      	when(sessionMock.getAttribute("offertaFormativa")).thenReturn(offertaFormativaMock);
+	      	when(sessionMock.getAttribute("obbligatori1")).thenReturn(obbligatori1List);
+	      	when(sessionMock.getAttribute("obbligatori2")).thenReturn(obbligatori2List);
+	      	when(sessionMock.getAttribute("obbligatori3")).thenReturn(obbligatori3List);
+	      	when(sessionMock.getAttribute("o1")).thenReturn(opzionali1List);
+	      	when(sessionMock.getAttribute("o2")).thenReturn(opzionali2List);
+	      	when(sessionMock.getAttribute("o3")).thenReturn(opzionali3List);
+	      	when(sessionMock.getAttribute("libera")).thenReturn(esamiLib);
+
+	      	when(opzionali1List.get(0).getEsami().get(0).getCfu()).thenReturn(24);
+	      	when(opzionali2List.get(0).getEsami().get(0).getCfu()).thenReturn(29);
+
+	        // Impostazione del comportamento del mock di RequestDispatcher
+	        when(request.getRequestDispatcher("FormulazionePiano.jsp")).thenReturn(requestDispatcherMock);
+	        // Chiamata del metodo doGet() della servlet
+	        doPost(request, response);
+	        // Verifica dei comportamenti attesi
+	        // Esempio: verifica che il metodo forward sia stato chiamato sul mock di RequestDispatcher
+	        verify(requestDispatcherMock).forward(request, response);
+	    }
+	    
+	  //TC_1.5.6
+	    @Test
+	    public void testDoPostMag6() throws ServletException, IOException {
+		  
+	      	obbligatori1List.add(obbligatori1Mock);
+	        obbligatori2List.add(obbligatori2Mock); 
+	        obbligatori3List.add(obbligatori3Mock);
+	        
+	        opzionali1Mock.setTotCfu(28);
+	        opzionali2Mock.setTotCfu(28);
+
+	        opzionali1List.add(opzionali1Mock);
+	        opzionali2List.add(opzionali2Mock);
 
 	        // Impostazione del comportamento del mock di HttpSession
 	      	when(request.getSession(true)).thenReturn(sessionMock);
@@ -300,10 +463,288 @@ public class Test_SelectionOffertaServlet extends SelectionOffertaServlet {
 	      	when(sessionMock.getAttribute("o1")).thenReturn(opzionali1List);
 	      	when(sessionMock.getAttribute("o2")).thenReturn(opzionali2List);
 	      	when(sessionMock.getAttribute("o3")).thenReturn(opzionali3List);
+	      	when(sessionMock.getAttribute("libera")).thenReturn(esamiLib);
+
+	      	when(opzionali1List.get(0).getEsami().get(0).getCfu()).thenReturn(29);
+	      	when(sessionMock.getAttribute("totalecfuSelLib")).thenReturn(11);
+        
+	        // Impostazione del comportamento del mock di RequestDispatcher
+	        when(request.getRequestDispatcher("FormulazionePiano.jsp")).thenReturn(requestDispatcherMock);
+	        // Chiamata del metodo doGet() della servlet
+	        doPost(request, response);
+	        // Verifica dei comportamenti attesi
+	        // Esempio: verifica che il metodo forward sia stato chiamato sul mock di RequestDispatcher
+	        verify(requestDispatcherMock).forward(request, response);
+	     }
+	    
+	  //TC_1.5.7
+	    @Test
+	    public void testDoPostMag7() throws ServletException, IOException {
+		  
+	      	obbligatori1List.add(obbligatori1Mock);
+	        obbligatori2List.add(obbligatori2Mock); 
+	        obbligatori3List.add(obbligatori3Mock);
+	        
+	        opzionali1Mock.setTotCfu(28);
+	        opzionali2Mock.setTotCfu(28);
+
+	        opzionali1List.add(opzionali1Mock);
+	        opzionali2List.add(opzionali2Mock);
+
+	        // Impostazione del comportamento del mock di HttpSession
+	      	when(request.getSession(true)).thenReturn(sessionMock);
+	      	// Impostazione degli attributi della sessione
+	      	when(request.getParameter("metodo")).thenReturn("fine");
+	      	when(sessionMock.getAttribute("offertaFormativa")).thenReturn(offertaFormativaMock);
+	      	when(sessionMock.getAttribute("obbligatori1")).thenReturn(obbligatori1List);
+	      	when(sessionMock.getAttribute("obbligatori2")).thenReturn(obbligatori2List);
+	      	when(sessionMock.getAttribute("obbligatori3")).thenReturn(obbligatori3List);
+	      	when(sessionMock.getAttribute("o1")).thenReturn(opzionali1List);
+	      	when(sessionMock.getAttribute("o2")).thenReturn(opzionali2List);
+	      	when(sessionMock.getAttribute("o3")).thenReturn(opzionali3List);
+	      	when(sessionMock.getAttribute("libera")).thenReturn(esamiLib);
+
+	      	when(opzionali2List.get(0).getEsami().get(0).getCfu()).thenReturn(29);
+	      	when(sessionMock.getAttribute("totalecfuSelLib")).thenReturn(11);
+        
+	        // Impostazione del comportamento del mock di RequestDispatcher
+	        when(request.getRequestDispatcher("FormulazionePiano.jsp")).thenReturn(requestDispatcherMock);
+	        // Chiamata del metodo doGet() della servlet
+	        doPost(request, response);
+	        // Verifica dei comportamenti attesi
+	        // Esempio: verifica che il metodo forward sia stato chiamato sul mock di RequestDispatcher
+	        verify(requestDispatcherMock).forward(request, response);
+	     }
+	    
+	  //TC_1.5.8
+	    @Test
+	    public void testDoPostMag8() throws ServletException, IOException {
+		  
+	      	obbligatori1List.add(obbligatori1Mock);
+	        obbligatori2List.add(obbligatori2Mock); 
+	        obbligatori3List.add(obbligatori3Mock);
+	        
+	        opzionali1Mock.setTotCfu(28);
+	        opzionali2Mock.setTotCfu(28);
+
+	        opzionali1List.add(opzionali1Mock);
+	        opzionali2List.add(opzionali2Mock);
+
+	        // Impostazione del comportamento del mock di HttpSession
+	      	when(request.getSession(true)).thenReturn(sessionMock);
+	      	// Impostazione degli attributi della sessione
+	      	when(request.getParameter("metodo")).thenReturn("fine");
+	      	when(sessionMock.getAttribute("offertaFormativa")).thenReturn(offertaFormativaMock);
+	      	when(sessionMock.getAttribute("obbligatori1")).thenReturn(obbligatori1List);
+	      	when(sessionMock.getAttribute("obbligatori2")).thenReturn(obbligatori2List);
+	      	when(sessionMock.getAttribute("obbligatori3")).thenReturn(obbligatori3List);
+	      	when(sessionMock.getAttribute("o1")).thenReturn(opzionali1List);
+	      	when(sessionMock.getAttribute("o2")).thenReturn(opzionali2List);
+	      	when(sessionMock.getAttribute("o3")).thenReturn(opzionali3List);
+	      	when(sessionMock.getAttribute("libera")).thenReturn(esamiLib);
+
+	      	when(opzionali1List.get(0).getEsami().get(0).getCfu()).thenReturn(24);
+	      	when(sessionMock.getAttribute("totalecfuSelLib")).thenReturn(12);
+        
+	        // Impostazione del comportamento del mock di RequestDispatcher
+	        when(request.getRequestDispatcher("FormulazionePiano.jsp")).thenReturn(requestDispatcherMock);
+	        // Chiamata del metodo doGet() della servlet
+	        doPost(request, response);
+	        // Verifica dei comportamenti attesi
+	        // Esempio: verifica che il metodo forward sia stato chiamato sul mock di RequestDispatcher
+	        verify(requestDispatcherMock).forward(request, response);
+	     }
+	    
+	  //TC_1.5.9
+	    @Test
+	    public void testDoPostMag9() throws ServletException, IOException {
+		  
+	      	obbligatori1List.add(obbligatori1Mock);
+	        obbligatori2List.add(obbligatori2Mock); 
+	        obbligatori3List.add(obbligatori3Mock);
+	        
+	        opzionali1Mock.setTotCfu(28);
+	        opzionali2Mock.setTotCfu(28);
+
+	        opzionali1List.add(opzionali1Mock);
+	        opzionali2List.add(opzionali2Mock);
+
+	        // Impostazione del comportamento del mock di HttpSession
+	      	when(request.getSession(true)).thenReturn(sessionMock);
+	      	// Impostazione degli attributi della sessione
+	      	when(request.getParameter("metodo")).thenReturn("fine");
+	      	when(sessionMock.getAttribute("offertaFormativa")).thenReturn(offertaFormativaMock);
+	      	when(sessionMock.getAttribute("obbligatori1")).thenReturn(obbligatori1List);
+	      	when(sessionMock.getAttribute("obbligatori2")).thenReturn(obbligatori2List);
+	      	when(sessionMock.getAttribute("obbligatori3")).thenReturn(obbligatori3List);
+	      	when(sessionMock.getAttribute("o1")).thenReturn(opzionali1List);
+	      	when(sessionMock.getAttribute("o2")).thenReturn(opzionali2List);
+	      	when(sessionMock.getAttribute("o3")).thenReturn(opzionali3List);
+	      	when(sessionMock.getAttribute("libera")).thenReturn(esamiLib);
+
+	      	when(opzionali2List.get(0).getEsami().get(0).getCfu()).thenReturn(24);
+	      	when(sessionMock.getAttribute("totalecfuSelLib")).thenReturn(12);
+        
+	        // Impostazione del comportamento del mock di RequestDispatcher
+	        when(request.getRequestDispatcher("FormulazionePiano.jsp")).thenReturn(requestDispatcherMock);
+	        // Chiamata del metodo doGet() della servlet
+	        doPost(request, response);
+	        // Verifica dei comportamenti attesi
+	        // Esempio: verifica che il metodo forward sia stato chiamato sul mock di RequestDispatcher
+	        verify(requestDispatcherMock).forward(request, response);
+	     }
+	    
+	    //TC_1.5.10
+	    @Test
+	    public void testDoPostMag10() throws ServletException, IOException {
+		  
+	      	obbligatori1List.add(obbligatori1Mock);
+	        obbligatori2List.add(obbligatori2Mock); 
+	        obbligatori3List.add(obbligatori3Mock);
+	        
+	        opzionali1Mock.setTotCfu(28);
+	        opzionali2Mock.setTotCfu(28);
+
+	        opzionali1List.add(opzionali1Mock);
+	        opzionali2List.add(opzionali2Mock);
+
+	        // Impostazione del comportamento del mock di HttpSession
+	      	when(request.getSession(true)).thenReturn(sessionMock);
+	      	// Impostazione degli attributi della sessione
+	      	when(request.getParameter("metodo")).thenReturn("fine");
+	      	when(sessionMock.getAttribute("offertaFormativa")).thenReturn(offertaFormativaMock);
+	      	when(sessionMock.getAttribute("obbligatori1")).thenReturn(obbligatori1List);
+	      	when(sessionMock.getAttribute("obbligatori2")).thenReturn(obbligatori2List);
+	      	when(sessionMock.getAttribute("obbligatori3")).thenReturn(obbligatori3List);
+	      	when(sessionMock.getAttribute("o1")).thenReturn(opzionali1List);
+	      	when(sessionMock.getAttribute("o2")).thenReturn(opzionali2List);
+	      	when(sessionMock.getAttribute("o3")).thenReturn(opzionali3List);
+	      	when(sessionMock.getAttribute("libera")).thenReturn(esamiLib);
 
 	      	when(opzionali1List.get(0).getEsami().get(0).getCfu()).thenReturn(29);
 	      	when(opzionali2List.get(0).getEsami().get(0).getCfu()).thenReturn(29);
-     
+	      	when(sessionMock.getAttribute("totalecfuSelLib")).thenReturn(11);
+        
+	        // Impostazione del comportamento del mock di RequestDispatcher
+	        when(request.getRequestDispatcher("FormulazionePiano.jsp")).thenReturn(requestDispatcherMock);
+	        // Chiamata del metodo doGet() della servlet
+	        doPost(request, response);
+	        // Verifica dei comportamenti attesi
+	        // Esempio: verifica che il metodo forward sia stato chiamato sul mock di RequestDispatcher
+	        verify(requestDispatcherMock).forward(request, response);
+	     }
+	    
+	    //TC_1.5.11
+	    @Test
+	    public void testDoPostMag11() throws ServletException, IOException {
+		  
+	      	obbligatori1List.add(obbligatori1Mock);
+	        obbligatori2List.add(obbligatori2Mock); 
+	        obbligatori3List.add(obbligatori3Mock);
+	        
+	        opzionali1Mock.setTotCfu(28);
+	        opzionali2Mock.setTotCfu(28);
+
+	        opzionali1List.add(opzionali1Mock);
+	        opzionali2List.add(opzionali2Mock);
+
+	        // Impostazione del comportamento del mock di HttpSession
+	      	when(request.getSession(true)).thenReturn(sessionMock);
+	      	// Impostazione degli attributi della sessione
+	      	when(request.getParameter("metodo")).thenReturn("fine");
+	      	when(sessionMock.getAttribute("offertaFormativa")).thenReturn(offertaFormativaMock);
+	      	when(sessionMock.getAttribute("obbligatori1")).thenReturn(obbligatori1List);
+	      	when(sessionMock.getAttribute("obbligatori2")).thenReturn(obbligatori2List);
+	      	when(sessionMock.getAttribute("obbligatori3")).thenReturn(obbligatori3List);
+	      	when(sessionMock.getAttribute("o1")).thenReturn(opzionali1List);
+	      	when(sessionMock.getAttribute("o2")).thenReturn(opzionali2List);
+	      	when(sessionMock.getAttribute("o3")).thenReturn(opzionali3List);
+	      	when(sessionMock.getAttribute("libera")).thenReturn(esamiLib);
+
+	      	when(opzionali1List.get(0).getEsami().get(0).getCfu()).thenReturn(29);
+	      	when(opzionali2List.get(0).getEsami().get(0).getCfu()).thenReturn(24);
+	      	when(sessionMock.getAttribute("totalecfuSelLib")).thenReturn(12);
+        
+	        // Impostazione del comportamento del mock di RequestDispatcher
+	        when(request.getRequestDispatcher("FormulazionePiano.jsp")).thenReturn(requestDispatcherMock);
+	        // Chiamata del metodo doGet() della servlet
+	        doPost(request, response);
+	        // Verifica dei comportamenti attesi
+	        // Esempio: verifica che il metodo forward sia stato chiamato sul mock di RequestDispatcher
+	        verify(requestDispatcherMock).forward(request, response);
+	     }
+
+	  //TC_1.5.12
+	    @Test
+	    public void testDoPostMag12() throws ServletException, IOException {
+		  
+	      	obbligatori1List.add(obbligatori1Mock);
+	        obbligatori2List.add(obbligatori2Mock); 
+	        obbligatori3List.add(obbligatori3Mock);
+	        
+	        opzionali1Mock.setTotCfu(28);
+	        opzionali2Mock.setTotCfu(28);
+
+	        opzionali1List.add(opzionali1Mock);
+	        opzionali2List.add(opzionali2Mock);
+
+	        // Impostazione del comportamento del mock di HttpSession
+	      	when(request.getSession(true)).thenReturn(sessionMock);
+	      	// Impostazione degli attributi della sessione
+	      	when(request.getParameter("metodo")).thenReturn("fine");
+	      	when(sessionMock.getAttribute("offertaFormativa")).thenReturn(offertaFormativaMock);
+	      	when(sessionMock.getAttribute("obbligatori1")).thenReturn(obbligatori1List);
+	      	when(sessionMock.getAttribute("obbligatori2")).thenReturn(obbligatori2List);
+	      	when(sessionMock.getAttribute("obbligatori3")).thenReturn(obbligatori3List);
+	      	when(sessionMock.getAttribute("o1")).thenReturn(opzionali1List);
+	      	when(sessionMock.getAttribute("o2")).thenReturn(opzionali2List);
+	      	when(sessionMock.getAttribute("o3")).thenReturn(opzionali3List);
+	      	when(sessionMock.getAttribute("libera")).thenReturn(esamiLib);
+
+	      	when(opzionali1List.get(0).getEsami().get(0).getCfu()).thenReturn(24);
+	      	when(opzionali2List.get(0).getEsami().get(0).getCfu()).thenReturn(29);
+	      	when(sessionMock.getAttribute("totalecfuSelLib")).thenReturn(12);
+        
+	        // Impostazione del comportamento del mock di RequestDispatcher
+	        when(request.getRequestDispatcher("FormulazionePiano.jsp")).thenReturn(requestDispatcherMock);
+	        // Chiamata del metodo doGet() della servlet
+	        doPost(request, response);
+	        // Verifica dei comportamenti attesi
+	        // Esempio: verifica che il metodo forward sia stato chiamato sul mock di RequestDispatcher
+	        verify(requestDispatcherMock).forward(request, response);
+	     }
+	    
+	  //TC_1.5.13
+	    @Test
+	    public void testDoPostMag13() throws ServletException, IOException {
+		  
+	      	obbligatori1List.add(obbligatori1Mock);
+	        obbligatori2List.add(obbligatori2Mock); 
+	        obbligatori3List.add(obbligatori3Mock);
+	        
+	        opzionali1Mock.setTotCfu(28);
+	        opzionali2Mock.setTotCfu(28);
+
+	        opzionali1List.add(opzionali1Mock);
+	        opzionali2List.add(opzionali2Mock);
+
+	        // Impostazione del comportamento del mock di HttpSession
+	      	when(request.getSession(true)).thenReturn(sessionMock);
+	      	// Impostazione degli attributi della sessione
+	      	when(request.getParameter("metodo")).thenReturn("fine");
+	      	when(sessionMock.getAttribute("offertaFormativa")).thenReturn(offertaFormativaMock);
+	      	when(sessionMock.getAttribute("obbligatori1")).thenReturn(obbligatori1List);
+	      	when(sessionMock.getAttribute("obbligatori2")).thenReturn(obbligatori2List);
+	      	when(sessionMock.getAttribute("obbligatori3")).thenReturn(obbligatori3List);
+	      	when(sessionMock.getAttribute("o1")).thenReturn(opzionali1List);
+	      	when(sessionMock.getAttribute("o2")).thenReturn(opzionali2List);
+	      	when(sessionMock.getAttribute("o3")).thenReturn(opzionali3List);
+	      	when(sessionMock.getAttribute("libera")).thenReturn(esamiLib);
+
+	      	when(opzionali1List.get(0).getEsami().get(0).getCfu()).thenReturn(29);
+	      	when(opzionali2List.get(0).getEsami().get(0).getCfu()).thenReturn(29);
+	      	when(sessionMock.getAttribute("totalecfuSelLib")).thenReturn(12);
+        
 	        // Impostazione del comportamento del mock di RequestDispatcher
 	        when(request.getRequestDispatcher("PianoDiStudi.jsp")).thenReturn(requestDispatcherMock);
 	        // Chiamata del metodo doGet() della servlet
@@ -311,7 +752,8 @@ public class Test_SelectionOffertaServlet extends SelectionOffertaServlet {
 	        // Verifica dei comportamenti attesi
 	        // Esempio: verifica che il metodo forward sia stato chiamato sul mock di RequestDispatcher
 	        verify(requestDispatcherMock).forward(request, response);
-	    }
+	     }
+	   
 	}
 
 
