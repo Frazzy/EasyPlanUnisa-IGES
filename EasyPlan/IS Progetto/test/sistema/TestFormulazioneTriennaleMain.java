@@ -7,7 +7,10 @@ public class TestFormulazioneTriennaleMain {
 	
 		 TestFormulazioneTriennale.test1();
 		 TestFormulazioneTriennale.test2();
-	  
+		 TestFormulazioneTriennale.test3();
+		 TestFormulazioneTriennale.test4();
+		 TestFormulazioneTriennale.test5();
+		 
 	  }
 	  
 	  
