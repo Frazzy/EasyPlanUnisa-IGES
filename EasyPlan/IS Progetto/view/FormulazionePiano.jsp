@@ -1,17 +1,32 @@
+<%@page import="model.corso.di.laurea.CorsoDiLaureaBeanDao"%>
+<%@page import="model.esame.EsameBeanDao"%>
+<%@page import="java.sql.ResultSet"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.ArrayList"
     pageEncoding="UTF-8" import="model.offerta.formativa.OffertaFormativaBean" import="model.corso.di.laurea.CorsoDiLaureaBean"
     import="model.curriculum.CurriculumBean" import="model.esame.EsameBean" import="model.docente.DocenteBean"
-    import="model.gruppo.esami.GruppoEsamiObbligatoriBean" import="model.gruppo.esami.GruppoEsamiOpzionaliBean" %>
+    import="model.gruppo.esami.GruppoEsamiObbligatoriBean" import="model.gruppo.esami.GruppoEsamiOpzionaliBean" 
+    import="java.sql.Connection" import="java.sql.DriverManager" import="java.sql.ResultSet"
+    import="java.sql.SQLException" import="java.sql.Statement" import="model.DriverManagerConnectionPool" import="model.esame.EsameBeanDao"
+    import="model.curriculum.CurriculumBeanDao" import="model.docente.DocenteBean" import="model.docente.DocenteBeanDao" import=" java.util.HashSet"
+ %>
     
       
      <%! @SuppressWarnings("unchecked") %>
      <%
      	// Simulazione dati presi dal database
+     	
+  
+      
      	OffertaFormativaBean of = (OffertaFormativaBean) request.getAttribute("offertaFormativa"); 
+        
     	ArrayList<CorsoDiLaureaBean> cd = of.getLauree();
+    	
+    	
     	ArrayList<CurriculumBean> cm = cd.get(0).getCurricula();
     	ArrayList<GruppoEsamiObbligatoriBean> gob = cm.get(0).getGruppi_obbligatori();
     	ArrayList<GruppoEsamiOpzionaliBean> gop = cm.get(0).getGruppi_opzionali();
+    	ArrayList<EsameBean> sceltalibera= new ArrayList<>();
+    
     	
     	ArrayList<GruppoEsamiObbligatoriBean> ob1 = new ArrayList<GruppoEsamiObbligatoriBean>();
     	ArrayList<GruppoEsamiObbligatoriBean>  ob2 = new ArrayList<GruppoEsamiObbligatoriBean>();
@@ -84,6 +99,70 @@
     		session.setAttribute("opzionali3", op3);
     	
     	
+    	
+    	  //Nuova Sezione dedicata al prelievo di tutti gli esami dell'offerta formativa per creare la scelta libera
+    	
+ if (session.getAttribute("libera") != null) {
+    sceltalibera = (ArrayList<EsameBean>) session.getAttribute("libera");
+    session.removeAttribute("libera");
+    session.setAttribute("libera", sceltalibera);
+} else {
+    int codiceob = ob1.get(0).getCodiceGeOb(); // contiene la tipologia tra triennale e magistrale
+    Connection conn = DriverManagerConnectionPool.getConnection();
+    String query = null;
+    String query2 = null;
+
+    if (codiceob > 2) {
+        query = "SELECT CodiceEsame FROM formato WHERE CodiceGEOp >= 2";
+    } else {
+        query = "SELECT CodiceEsame FROM formato WHERE CodiceGEOp = 1";
+    }
+
+    Statement statement = conn.createStatement();
+    ResultSet res = statement.executeQuery(query);
+
+    EsameBeanDao esamdao = new EsameBeanDao();
+    DocenteBeanDao docentdao = new DocenteBeanDao();
+
+    // Use a HashSet to store unique EsameBean objects
+    HashSet<EsameBean> uniqueEsami = new HashSet<>();
+
+    while (res.next()) {
+        int value = res.getInt("CodiceEsame");
+        EsameBean esam = esamdao.doRetrieveByKey(value);
+        if (!sceltalibera.contains(esam)) {
+            ArrayList<DocenteBean> proflibero = new ArrayList<>();
+            query2 = "SELECT CodiceDocente FROM insegnamento WHERE CodiceEsame = '" + value + "'";
+            statement = conn.createStatement();
+            ResultSet res2 = statement.executeQuery(query2);
+
+            while (res2.next()) {
+                DocenteBean doc = docentdao.doRetrieveByKey(res2.getInt("CodiceDocente"));
+                proflibero.add(doc);
+            }
+
+            esam.setDocenti(proflibero);
+            uniqueEsami.add(esam);
+        }
+    }
+    
+   
+
+    for (int i = 0; i < gob.size(); i++) {
+        ArrayList<EsameBean> esamiDaRimuovere = gob.get(i).getEsami();
+        uniqueEsami.removeAll(esamiDaRimuovere);
+    }
+    HashSet<EsameBean> uniqueEsamiSenzaNull = new HashSet<>(uniqueEsami);
+
+    uniqueEsamiSenzaNull.remove(null);
+    // Conversione di uniqueEsami HashSet in ArrayList
+    sceltalibera = new ArrayList<>(uniqueEsamiSenzaNull);
+
+  
+    session.setAttribute("libera", sceltalibera);
+}
+
+
     	session.setAttribute("offertaFormativa",of);
     	
      %>
@@ -338,7 +417,7 @@
 	     	</table>
 	     </div>
     	
-    <!-- esami obbligatori anno 3 -->
+      <!-- esami obbligatori anno 3 -->
     <%for(int i = 0; i < ob3.size(); i++){ %>
     		
     			<h3><b><%=ob3.get(i).getAnno()+"° anno obbligatorio" %></b></h3>
@@ -434,6 +513,62 @@
 	     		</tbody>
 	     	</table>
 	     </div>
+	     
+		  <!-- Scelta libera -->
+			<h3><b>Scelta libera: 12CFU </b></h3>
+
+		<div class="table-wrapper-scroll-y">
+		  <table class="table table-bordered table-striped">
+		    <thead>
+		      <tr>
+		        <th scope="col" style="width: 70%">Nome esame</th>
+		        <th scope="col" style="width: 15%">CFU</th>
+		        <th scope="col" style="width: 15%">Selezionato</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <% for (int j = 0; j < sceltalibera.size(); j++) { %>
+		      <tr>
+		        <th scope="row">
+		          <a data-toggle="collapse" href="#collapseScelta<%= sceltalibera.get(j).getCodiceEsame() %>" role="button" aria-expanded="false" aria-controls="collapseExample"><%= sceltalibera.get(j).getNome() %></a>
+		         <div class="collapse" id="collapseScelta<%= sceltalibera.get(j).getCodiceEsame() %>">
+		            <div class="card card-body">
+		              Descrizione <%= sceltalibera.get(j).getDescrizione() %><br>
+		              <% for (int z = 0; z < sceltalibera.get(j).getDocenti().size(); z++) { %>
+		                <a href="<%= sceltalibera.get(j).getDocenti().get(z).getIndirizzoPaginaWeb() %>">link docente <%=(z + 1) %></a><br>
+		              <% } %>
+		              Ore di lezione <%= sceltalibera.get(j).getOreLezione() %><br>
+		            </div>
+		          </div>
+		        </th>
+		        <td><%= sceltalibera.get(j).getCfu() %></td>
+		        <td>
+		          <form action="selectionOfferta" method="post">
+		             <input type="hidden" name="gruppolib" value="lib">
+		            <!-- Potrebbe essere necessario reinserire il campo dei CFU -->
+		            <input type="hidden" name="esame" value="<%= sceltalibera.get(j).getCodiceEsame() %>">
+		            <input type="hidden" name="metodo" value="<%= sceltalibera.get(j).getCodiceEsame() %>">
+		            <% if (sceltalibera.get(j).isCheck()) { %>
+		              <label class="c">
+		                <input type="checkbox" class="form-check-input filled-in" checked name="check<%= sceltalibera.get(j).getCodiceEsame() %>" onChange="this.form.submit()">
+		                <span class="checkmark"></span>
+		              </label>
+		            <% } else { %>
+		              <label class="c">
+		                <input type="checkbox" class="form-check-input filled-in" name="check<%= sceltalibera.get(j).getCodiceEsame() %>" onChange="this.form.submit()">
+		                <span class="checkmark"></span>
+		              </label>
+		            <% } %>
+		          </form>
+		        </td>
+		      </tr>
+		      <% } 
+		      %>
+		    </tbody>
+		  </table>
+		</div>
+
+	     
     
     
     </div>

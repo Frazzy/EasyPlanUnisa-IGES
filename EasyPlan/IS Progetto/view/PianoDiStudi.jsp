@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.ArrayList"
     import="java.util.HashMap" pageEncoding="UTF-8" import="model.offerta.formativa.OffertaFormativaBean" import="model.corso.di.laurea.CorsoDiLaureaBean"
     import="model.curriculum.CurriculumBean" import="model.esame.EsameBean" import="model.docente.DocenteBean"
-    import="model.gruppo.esami.GruppoEsamiObbligatoriBean" import="model.gruppo.esami.GruppoEsamiOpzionaliBean" %>
+    import="model.gruppo.esami.GruppoEsamiObbligatoriBean" import="model.gruppo.esami.GruppoEsamiOpzionaliBean" import="model.esame.EsameBean" %>
     
     <%! @SuppressWarnings("unchecked") %>
     <%// Simulazione dati presi dal database
@@ -14,6 +14,8 @@
 	ArrayList<GruppoEsamiOpzionaliBean> op1 = (ArrayList<GruppoEsamiOpzionaliBean>) session.getAttribute("o1");
 	ArrayList<GruppoEsamiOpzionaliBean> op2 = (ArrayList<GruppoEsamiOpzionaliBean>) session.getAttribute("o2");
 	ArrayList<GruppoEsamiOpzionaliBean> op3 = (ArrayList<GruppoEsamiOpzionaliBean>) session.getAttribute("o3");
+	ArrayList<EsameBean> lib=(ArrayList<EsameBean>) session.getAttribute("libera");
+	int totalicfuLibScelti= (int)session.getAttribute("totalecfuSelLib");
      %>
      
      
@@ -206,6 +208,31 @@
 				     </table>
 				    </div>
 				    <%} %>
+				    
+				    
+				     <!-- esami scelta libera  -->	
+				  <div class="table-wrapper-scroll-y">
+				   	<table class="table table-bordered table-striped">
+						<thead>
+							<tr><td><b>Scelta libera: 12 CFU</b></td><td><%=" " %></td></tr>
+			      				<tr>
+							         <th scope="col" style="width:80%">Nome esame</th>
+						        	 <th scope="col" style="width:20%">CFU</th>
+			      				</tr>
+			    		</thead>
+			    		<tbody>
+				   			<% for(int j = 0; j< lib.size(); j++){ %>
+				   			<% if(lib.get(j).isCheck()){ %>
+				    				<tr>
+				        				<td scope="row"><%=lib.get(j).getNome() %></td>
+				        				<td><%=lib.get(j).getCfu() %></td>
+				      				</tr>
+				      				<%}%>
+					     		<%}%>
+				   		</tbody>
+				     </table>
+				    </div>
+				    
 			   	
 	   		</div>
 	   		
