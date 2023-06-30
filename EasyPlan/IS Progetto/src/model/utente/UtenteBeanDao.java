@@ -1,5 +1,6 @@
 package model.utente;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -61,8 +62,10 @@ public class UtenteBeanDao {
 	    ps.setString(2, utente.getPassword());
 
 	    int result = ps.executeUpdate();
-
-	    return result > 0;
+	    if(result!=0) {
+	    	 return true;
+	    }
+	   
 	  } catch (SQLException e) {
 	    e.printStackTrace();
 	  } finally {
@@ -76,5 +79,27 @@ public class UtenteBeanDao {
 
 	  return false;
 	}
+  public synchronized boolean doDelete(String username) throws IOException {
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+
+	    try {
+	      conn = DriverManagerConnectionPool.getConnection();
+
+	      String query = "DELETE FROM utente WHERE Username=?";
+
+	      ps = conn.prepareStatement(query);
+	      ps.setString(1, username);
+
+	      int i = ps.executeUpdate();
+	      if (i != 0) {
+	        return true;
+	      }
+	    } catch (SQLException e) {
+	      e.printStackTrace();
+	    }
+
+	    return false;
+	  }
 
 }

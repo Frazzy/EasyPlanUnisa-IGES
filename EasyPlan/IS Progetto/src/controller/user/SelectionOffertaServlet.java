@@ -5,18 +5,28 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
+import com.google.gson.JsonObject;
 
 import model.esame.EsameBean;
 import model.esame.EsameBeanDao;
 import model.gruppo.esami.GruppoEsamiObbligatoriBean;
 import model.gruppo.esami.GruppoEsamiOpzionaliBean;
 import model.offerta.formativa.OffertaFormativaBean;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * Servlet implementation class selectionOfferta.
@@ -62,9 +72,10 @@ public class SelectionOffertaServlet extends HttpServlet {
             (ArrayList<GruppoEsamiOpzionaliBean>) session.getAttribute("o3");
         
         ArrayList<EsameBean> sceltalibera = (ArrayList<EsameBean>) session.getAttribute("libera");
-        if(session.getAttribute("totalecfuSelLib")!=null) {
-         totaleCFUselezionatisceltalibera = (int) session.getAttribute("totalecfuSelLib");
-        }
+          if(session.getAttribute("totalecfuSelLib")!=null) {
+              totaleCFUselezionatisceltalibera = (int) session.getAttribute("totalecfuSelLib");
+          }
+
         boolean check1 = false;
         boolean check2 = false;
 
@@ -101,7 +112,7 @@ public class SelectionOffertaServlet extends HttpServlet {
             if (cfu > compCfu) {
               pass = false;
               session.setAttribute("errore",
-                  "CFU minimi del gruppo opzionale del 1° anno da " + cfu + " cfu non rispettati");
+                  "CFU minimi del gruppo opzionale del 1� anno da " + cfu + " cfu non rispettati");
             } else if (cfu <= compCfu) {
               pass = true;
             }
@@ -112,7 +123,7 @@ public class SelectionOffertaServlet extends HttpServlet {
           } else {
             request.setAttribute("offertaFormativa", of);
             session.setAttribute("errore",
-                "CFU minimi del gruppo opzionale del 1° anno da" + cfu + " cfu non rispettati");
+                "CFU minimi del gruppo opzionale del 1� anno da " + cfu + " cfu non rispettati");
 
             session.removeAttribute("o1");
             session.setAttribute("o1", op1);
@@ -143,7 +154,7 @@ public class SelectionOffertaServlet extends HttpServlet {
               if (cfu > compCfu) {
                 pass = false;
                 session.setAttribute("errore",
-                    "CFU minimi del gruppo opzionale del 2° anno da " 
+                    "CFU minimi del gruppo opzionale del 2° anno da "
                         + cfu + " cfu non rispettati");
               } else if (cfu <= compCfu) {
                 pass = true;
@@ -156,7 +167,7 @@ public class SelectionOffertaServlet extends HttpServlet {
             } else {
               request.setAttribute("offertaFormativa", of);
               session.setAttribute("errore",
-                  "CFU minimi del gruppo opzionale del 2° anno da" + cfu + " cfu non rispettati");
+                  "CFU minimi del gruppo opzionale del 2° anno da " + cfu + " cfu non rispettati");
 
               session.removeAttribute("o1");
               session.setAttribute("o1", op1);
@@ -200,7 +211,7 @@ public class SelectionOffertaServlet extends HttpServlet {
             } else {
               request.setAttribute("offertaFormativa", of);
               session.setAttribute("errore",
-                  "CFU minimi del gruppo opzionale del 3° anno da" + cfu + " cfu non rispettati");
+                  "CFU minimi del gruppo opzionale del 3° anno da " + cfu + " cfu non rispettati");
 
               session.removeAttribute("o1");
               session.setAttribute("o1", op1);
@@ -333,9 +344,96 @@ public class SelectionOffertaServlet extends HttpServlet {
     } 
     
     
+    else if (request.getParameter("metodo").equals("salva")) {
+    	//If per salvare l'attuale sessione e continuare in un secondo momento
+    	
+    	
+    	HttpSession session = request.getSession(true);
+        OffertaFormativaBean of = (OffertaFormativaBean) session.getAttribute("offertaFormativa");
+
+        ArrayList<GruppoEsamiObbligatoriBean> ob1 = (ArrayList<GruppoEsamiObbligatoriBean>) session
+            .getAttribute("obbligatori1");
+        ArrayList<GruppoEsamiObbligatoriBean> ob2 = (ArrayList<GruppoEsamiObbligatoriBean>) session
+            .getAttribute("obbligatori2");
+        ArrayList<GruppoEsamiObbligatoriBean> ob3 = (ArrayList<GruppoEsamiObbligatoriBean>) session
+            .getAttribute("obbligatori3");
+
+
+		  ArrayList<GruppoEsamiOpzionaliBean> op1 = (ArrayList<GruppoEsamiOpzionaliBean>) session.getAttribute("opzionali1");
+	        ArrayList<GruppoEsamiOpzionaliBean> op2 = (ArrayList<GruppoEsamiOpzionaliBean>) session.getAttribute("opzionali2");
+	        ArrayList<GruppoEsamiOpzionaliBean> op3 = (ArrayList<GruppoEsamiOpzionaliBean>) session.getAttribute("opzionali3");
+        
+        
+        ArrayList<GruppoEsamiOpzionaliBean> opz1 = 
+            (ArrayList<GruppoEsamiOpzionaliBean>) session.getAttribute("o1");
+        ArrayList<GruppoEsamiOpzionaliBean> opz2 = 
+            (ArrayList<GruppoEsamiOpzionaliBean>) session.getAttribute("o2");
+        ArrayList<GruppoEsamiOpzionaliBean> opz3 = 
+            (ArrayList<GruppoEsamiOpzionaliBean>) session.getAttribute("o3");
+        
+        ArrayList<EsameBean> sceltalibera = (ArrayList<EsameBean>) session.getAttribute("libera");
+        int totaleCFUselezionatisceltalibera = (int) session.getAttribute("totalecfuSelLib");
+        String utente= (String) session.getAttribute("utente");
+    	
+    	Gson gson = new Gson();
+
+    	
+    	
+    	// Crea un oggetto JSON
+    	JsonObject json = new JsonObject();
+
+    	// Aggiungi i dati all'oggetto JSON per la serializzazione
+    	json.addProperty("offertaFormativa", gson.toJson(of));
+    	json.addProperty("obbligatori1", gson.toJson(ob1));
+    	json.addProperty("obbligatori2", gson.toJson(ob2));
+    	json.addProperty("obbligatori3", gson.toJson(ob3));
+    	json.addProperty("opzionali1", gson.toJson(op1));
+    	json.addProperty("opzionali2", gson.toJson(op2));
+    	json.addProperty("opzionali3", gson.toJson(op3));
+    	json.addProperty("o1", gson.toJson(opz1));
+    	json.addProperty("o2", gson.toJson(opz2));
+    	json.addProperty("o3", gson.toJson(opz3));
+    	json.addProperty("libera", gson.toJson(sceltalibera));
+    	json.addProperty("totalecfuSelLib", totaleCFUselezionatisceltalibera);
+    	
+    	
+    	
     
-    //Sezione di if per gli esami opzionali
+    	//la path andrebbe corretta per funzionare ovunque
+    	
+		
+    	
+    	String projectPath = request.getServletContext().getRealPath("/");
+    	String jsonsFolderPath = projectPath + "jsons/";
+   
+         
+         String nomeFile = jsonsFolderPath + request.getParameter("risultato") + ".json";
+    	
+		try (FileWriter fileWriter = new FileWriter(nomeFile)) {
+		    fileWriter.write(json.toString());
+		    fileWriter.flush();
+		}
+		catch (IOException e) {
+		    e.printStackTrace();
+		}
+		
+		
+		
+    	
+    	
+    	RequestDispatcher rd = request.getRequestDispatcher("Homepage.jsp");
+    	rd.forward(request, response);
+    	
+    }
+    
+    
+    
+    
+    //Sezione di if per gli esami liberi
     else if  ( (!request.getParameter("esame").isEmpty()) && (request.getParameter("gruppolib")!=null) ) {
+    	
+    	
+    	
     	
     	OffertaFormativaBean of = null;
         int totaleCFUselezionatisceltalibera = 0;
@@ -351,13 +449,14 @@ public class SelectionOffertaServlet extends HttpServlet {
 		}
 		ArrayList<EsameBean> sceltalibera = new ArrayList<EsameBean>();  
 		sceltalibera= (ArrayList<EsameBean>) session.getAttribute("libera");
-		
+		String utente=null;
 		
 		
 		 
 		  synchronized (session) {
 		 // aggiunta esami nel gruppo libero
 			  of = (OffertaFormativaBean) session.getAttribute("offertaFormativa");
+			  utente=(String) session.getAttribute("utente");
 			  
 			  ArrayList<GruppoEsamiOpzionaliBean> op1 = (ArrayList<GruppoEsamiOpzionaliBean>) session.getAttribute("opzionali1");
 		        ArrayList<GruppoEsamiOpzionaliBean> op2 = (ArrayList<GruppoEsamiOpzionaliBean>) session.getAttribute("opzionali2");
@@ -436,6 +535,10 @@ public class SelectionOffertaServlet extends HttpServlet {
 		        session.removeAttribute("totalecfuSelLib");
 		        session.setAttribute("libera",sceltalibera);
 		        session.setAttribute("totalecfuSelLib", totaleCFUselezionatisceltalibera);  
+		        
+		        
+		        session.removeAttribute("utente");
+		        session.setAttribute("utente", utente);
 	            }
 	          
 	      
@@ -483,8 +586,10 @@ public class SelectionOffertaServlet extends HttpServlet {
       ArrayList<GruppoEsamiObbligatoriBean> ob1 = null;
       ArrayList<GruppoEsamiObbligatoriBean> ob2 = null;
       ArrayList<GruppoEsamiObbligatoriBean> ob3 = null;
+      String utente=null;
       
       synchronized (session) {
+    	  utente=(String) session.getAttribute("utente");
         of = (OffertaFormativaBean) session.getAttribute("offertaFormativa");
         ob1 = (ArrayList<GruppoEsamiObbligatoriBean>) session.getAttribute("obbligatori1");
         ob2 = (ArrayList<GruppoEsamiObbligatoriBean>) session.getAttribute("obbligatori2");
@@ -580,10 +685,11 @@ public class SelectionOffertaServlet extends HttpServlet {
               }
             }
           } else {
-            for (int z = 0; z < op3.get(i).getEsami().size(); z++) {
-              if (op3.get(i).getEsami().get(z).getCodiceEsame() == cercato.getCodiceEsame()) {
-                op3.get(i).getEsami().get(z).setCheck(false);
-              }
+              opz3.get(i).getEsami().remove(cercato);
+              for (int z = 0; z < op3.get(i).getEsami().size(); z++) {
+                  if (op3.get(i).getEsami().get(z).getCodiceEsame() == cercato.getCodiceEsame()) {
+                      op3.get(i).getEsami().get(z).setCheck(false);
+                  }
             }
           }
         }
@@ -627,6 +733,9 @@ public class SelectionOffertaServlet extends HttpServlet {
         session.setAttribute("libera", sceltalibera);
         session.removeAttribute("totalecfuSelLib");
         session.setAttribute("totalecfuSelLib", totaleCFUselezionatisceltalibera);
+        
+        session.removeAttribute("utente");
+        session.setAttribute("utente", utente);
         
       }
 

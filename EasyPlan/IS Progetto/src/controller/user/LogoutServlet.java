@@ -35,20 +35,7 @@ public class LogoutServlet extends HttpServlet {
       throws ServletException, IOException {
 
     HttpSession session = request.getSession(false); // Otteniamo la sessione esistente senza crearne una nuova
-    if (session != null) {
-      if (session.getAttribute("amministratore") != null) {
-        // Se l'utente � un admin, invalidiamo la sessione e reindirizziamo alla pagina di login per admin
-        session.invalidate();
-        response.sendRedirect("Homepage.jsp");
-        return;
-      } else if (session.getAttribute("utente") != null) {
-        // Se l'utente � un user, invalidiamo la sessione e reindirizziamo alla pagina di login per user
-        session.invalidate();
-        response.sendRedirect("Homepage.jsp");
-        return;
-      }
-    }
-
+    session.invalidate();
     // Redirect alla homepage di default
     response.sendRedirect("Homepage.jsp");
   }

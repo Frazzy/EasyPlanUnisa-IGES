@@ -47,6 +47,7 @@
   					 if (utente != null ) {
 					%>	
 					  <li><a href="Logout" style="color:#000000">Log out <span class="glyphicon glyphicon-log-out"></span></a></li>
+					   <li><a href="PlanLoader.jsp" style="color:#000000">Carica un piano <span class="glyphicon glyphicon-log-out"></span></a></li>
 					 <%
    					} else {
 						%>

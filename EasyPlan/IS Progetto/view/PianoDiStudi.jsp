@@ -50,38 +50,39 @@
     </style>
   </head>
   <body>
-    <nav class="navbar navbar-inverse ">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-			<ul class="nav navbar-nav navbar-right">
-				<%
-
-				   if (utente != null ) {
-				%>	
-				  <li><a href="Logout" style="color:#000000">Log out <span class="glyphicon glyphicon-log-out"></span></a></li>
-				  <li><a href="PlanLoader.jsp" style="color:#000000">Carica un piano <span class="glyphicon glyphicon-log-out"></span></a></li>
-				 <%
-				   } else {
-					%>
-					<!-- Login  -->
-					<li><a href="Login.jsp" style="color:#000000">Login</a></li>
-					
-					<!-- Iscriviti -->
-					<li><a href="Subscribe.jsp" style="color:#000000">Iscriviti</a></li>
+   <nav class="navbar navbar-inverse ">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>                        
+					</button>
+				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+				
+					<ul class="nav navbar-nav navbar-right">
 					<%
-					   }
-					%>
-				</ul>
-        </div>
-      </div>
-    </nav>
+  
+  					 if (utente != null ) {
+					%>	
+					  <li><a href="Logout" style="color:#000000">Log out <span class="glyphicon glyphicon-log-out"></span></a></li>
+					  <li><a href="PlanLoader.jsp" style="color:#000000">Carica un piano <span class="glyphicon glyphicon-log-out"></span></a></li>
+					 <%
+   					} else {
+						%>
+						<!-- Login  -->
+						<li><a href="Login.jsp" style="color:#000000">Login</a></li>
+						
+						<!-- Iscriviti -->
+						<li><a href="Subscribe.jsp" style="color:#000000">Iscriviti</a></li>
+						<%
+   						}
+						%>
+					</ul>
+				</div>
+			</div>
+		</nav>
     <div id="HTMLtoPDF">
     	<h3 align=center>Il tuo Piano di studi</h3><br>
     		<div class="col-md-12">

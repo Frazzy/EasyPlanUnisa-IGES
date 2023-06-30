@@ -46,17 +46,18 @@ public class GetEsamiOffertaFormativaServlet extends HttpServlet {
    */
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-	  
-	HttpSession session = request.getSession(false); // Ottieni la sessione esistente o null se non esiste
 
-	if (session != null) {
-	   session.invalidate(); // Resettare la sessione e rimuovere tutte le variabili di sessione
-	 }
-	
+    HttpSession session = request.getSession(false); // Ottieni la sessione esistente o null se non esiste
+    String user= (String) request.getSession().getAttribute("utente");
+    if (session != null) {
+      session.invalidate(); // Resettare la sessione e rimuovere tutte le variabili di sessione
+    }
+
     String nomeOfferta = request.getParameter("nomeOfferta");
     int laurea = Integer.parseInt(request.getParameter("laurea"));
     int curricula = Integer.parseInt(request.getParameter("curricula"));
-
+    
+    
     /* variabili d'istanza */
     OffertaFormativaBean of = new OffertaFormativaBean();
     ArrayList<CorsoDiLaureaBean> lau = new ArrayList<CorsoDiLaureaBean>();
@@ -131,10 +132,13 @@ public class GetEsamiOffertaFormativaServlet extends HttpServlet {
       e.printStackTrace();
     }
 
+   
     RequestDispatcher rd = request.getRequestDispatcher("FormulazionePiano.jsp");
     request.setAttribute("offertaFormativa", of);
+    request.setAttribute("utente", user);
+    System.out.println(request.getAttribute("utente"));
     rd.forward(request, response);
-   
+
   }
 
   /**

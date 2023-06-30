@@ -1,11 +1,25 @@
 <%@page import="model.curriculum.CurriculumBeanDao"%>
 <%@page import="model.curriculum.CurriculumBean"%>
+<%@page import="java.io.File"%>
 <%@page import="java.util.ArrayList" pageEncoding="UTF-8"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"%>
 
 <%
    String utente = (String) session.getAttribute("utente");
    String amministratore = (String) session.getAttribute("amministratore");
+   String projectPath = request.getServletContext().getRealPath("/");
+	String jsonsFolderPath = projectPath + "jsons/";
+   
+   
+   File jsonsFolder = new File(jsonsFolderPath);
+   if (!jsonsFolder.exists()) {
+       boolean folderCreated = jsonsFolder.mkdir();
+       if (folderCreated) {
+           System.out.println("La cartella 'jsons' è stata creata con successo.");
+       } else {
+           System.out.println("Impossibile creare la cartella 'jsons'.");
+       }
+   }
 %>
 
 
@@ -70,6 +84,16 @@
 		<form action="SelezionaOffertaFormativa.jsp" method = "post">
    			<button name="button" class="btn btn-default btn-responsive center-block centerButton buttonwidth">Formula il tuo piano di studi</button>
    		</form>
+   		
+   		<%
+  
+  					 if (utente != null ) {
+					%>	
+					 <form action="PlanLoader.jsp" method = "post">
+   					<button name="button" class="btn btn-default btn-responsive center-block centerButton buttonwidth">Continua un piano di studi</button>
+   					</form>
+					 <%
+   					}%>
    		
    		</div>
 	</body>

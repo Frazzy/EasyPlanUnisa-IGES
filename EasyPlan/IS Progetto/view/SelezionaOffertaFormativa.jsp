@@ -8,10 +8,11 @@
               	OffertaFormativaBeanDao ofbd = new OffertaFormativaBeanDao();
               	of = ofbd.doRetriveByAll();
          %>
+         
          <%
-         String utente = (String) session.getAttribute("utente");
-         String amministratore = (String) session.getAttribute("amministratore");
-      %>
+   String utente = (String) session.getAttribute("utente");
+   String amministratore = (String) session.getAttribute("amministratore");
+%>
      
      
 <!DOCTYPE html>
@@ -36,36 +37,38 @@
   </head>
   <body>
     <nav class="navbar navbar-inverse ">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav navbar-right">
-            <%
-    
-               if (utente != null || amministratore!= null ) {
-            %>	
-              <li><a href="Logout" style="color:#000000">Log out <span class="glyphicon glyphicon-log-out"></span></a></li>
-             <%
-               } else {
-              %>
-              <!-- Login  -->
-              <li><a href="Login.jsp" style="color:#000000">Login</a></li>
-              
-              <!-- Iscriviti -->
-              <li><a href="Subscribe.jsp" style="color:#000000">Iscriviti</a></li>
-              <%
-                 }
-              %>
-            </ul>
-        </div>
-      </div>
-    </nav>
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>                        
+					</button>
+				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+				
+					<ul class="nav navbar-nav navbar-right">
+					<%
+  
+  					 if (utente != null || amministratore!= null ) {
+					%>	
+					  <li><a href="Logout" style="color:#000000">Log out <span class="glyphicon glyphicon-log-out"></span></a></li>
+					  <li><a href="PlanLoader.jsp" style="color:#000000">Carica un piano <span class="glyphicon glyphicon-log-out"></span></a></li>
+					 <%
+   					} else {
+						%>
+						<!-- Login  -->
+						<li><a href="Login.jsp" style="color:#000000">Login</a></li>
+						
+						<!-- Iscriviti -->
+						<li><a href="Subscribe.jsp" style="color:#000000">Iscriviti</a></li>
+						<%
+   						}
+						%>
+					</ul>
+				</div>
+			</div>
+		</nav>
     <form action="Homepage.jsp" method = "post">
     	<button name="button"  class="btn btn-default btn-responsive left-block">Indietro</button>
     </form>

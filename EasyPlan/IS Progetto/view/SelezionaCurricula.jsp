@@ -8,7 +8,7 @@
      	OffertaFormativaBean of = (OffertaFormativaBean) request.getAttribute("offertaFormativa"); 
     	ArrayList<CorsoDiLaureaBean> cd = of.getLauree();
     	ArrayList<CurriculumBean> cm = cd.get(0).getCurricula();
-      String utente = (String) session.getAttribute("utente");
+    	String utente = (String) session.getAttribute("utente");
      %>
      
      
@@ -40,37 +40,39 @@
   </head>
   <body>
     <nav class="navbar navbar-inverse ">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav navbar-right">
-            <%
-    
-               if (utente != null) {
-            %>	
-              <li><a href="Logout" style="color:#000000">Log out <span class="glyphicon glyphicon-log-out"></span></a></li>
-             <%
-               } else {
-              %>
-              <!-- Login  -->
-              <li><a href="Login.jsp" style="color:#000000">Login</a></li>
-              
-              <!-- Iscriviti -->
-              <li><a href="Subscribe.jsp" style="color:#000000">Iscriviti</a></li>
-              <%
-                 }
-              %>
-            </ul>
-        </div>
-      </div>
-    </nav>
-    <form action="getCorsiDiLaureaServlet" method = "post">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>                        
+					</button>
+				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+				
+					<ul class="nav navbar-nav navbar-right">
+					<%
+  
+  					 if (utente != null) {
+					%>	
+					  <li><a href="Logout" style="color:#000000">Log out <span class="glyphicon glyphicon-log-out"></span></a></li>
+					   <li><a href="PlanLoader.jsp" style="color:#000000">Carica un piano <span class="glyphicon glyphicon-log-out"></span></a></li>
+					 <%
+   					} else {
+						%>
+						<!-- Login  -->
+						<li><a href="Login.jsp" style="color:#000000">Login</a></li>
+						
+						<!-- Iscriviti -->
+						<li><a href="Subscribe.jsp" style="color:#000000">Iscriviti</a></li>
+						<%
+   						}
+						%>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		    <form action="getCorsiDiLaureaServlet" method = "post">
     	<input type="hidden" name="nomeOfferta" value="<%=of.getAnnoOffertaFormativa() %>">
     	<button name="button" id="laureaScelta" class="btn btn-default btn-responsive left-block">Indietro</button>
     </form>
