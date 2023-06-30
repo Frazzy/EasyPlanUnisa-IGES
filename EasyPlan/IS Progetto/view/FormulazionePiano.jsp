@@ -14,10 +14,13 @@
      <%! @SuppressWarnings("unchecked") %>
      <%
      	// Simulazione dati presi dal database
-     	
-  
+     	//se non è vuota viene presa da una sessione precedentemente salvata come json
+  		OffertaFormativaBean of= new OffertaFormativaBean();
+      if(request.getAttribute("offertaFormativa")!=null ){
+     	 of = (OffertaFormativaBean) request.getAttribute("offertaFormativa");}
+      else{
+    	   of = (OffertaFormativaBean) session.getAttribute("offertaFormativa");}
       
-     	OffertaFormativaBean of = (OffertaFormativaBean) request.getAttribute("offertaFormativa"); 
         
     	ArrayList<CorsoDiLaureaBean> cd = of.getLauree();
     	
@@ -26,6 +29,7 @@
     	ArrayList<GruppoEsamiObbligatoriBean> gob = cm.get(0).getGruppi_obbligatori();
     	ArrayList<GruppoEsamiOpzionaliBean> gop = cm.get(0).getGruppi_opzionali();
     	ArrayList<EsameBean> sceltalibera= new ArrayList<>();
+    	String utente= null;
     
     	
     	ArrayList<GruppoEsamiObbligatoriBean> ob1 = new ArrayList<GruppoEsamiObbligatoriBean>();
@@ -162,6 +166,22 @@
     session.setAttribute("libera", sceltalibera);
 }
 
+    	  
+ if(request.getAttribute("utente") != null){
+	 
+	 
+		utente= (String)request.getAttribute("utente");
+		System.out.println(utente);
+		session.removeAttribute("utente");
+		session.setAttribute("utente", utente);}
+    	  
+ else if(session.getAttribute("utente") != null ){
+	 utente= (String)session.getAttribute("utente");
+		System.out.println(utente);
+		session.removeAttribute("utente");
+		session.setAttribute("utente", utente);}
+	 
+ 
 
     	session.setAttribute("offertaFormativa",of);
     	
@@ -199,23 +219,37 @@
   </head>
   <body>
     <nav class="navbar navbar-inverse ">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav navbar-left">
-        </ul>
-          <ul class="nav navbar-nav navbar-right">
-<!-- "Login amministratore" --><li><a href="Login.html" style="color:#000000">Admin</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>                        
+					</button>
+				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+				
+					<ul class="nav navbar-nav navbar-right">
+					<%
+  
+  					 if (utente != null ) {
+					%>	
+					  <li><a href="Logout" style="color:#000000">Log out <span class="glyphicon glyphicon-log-out"></span></a></li>
+					 <%
+   					} else {
+						%>
+						<!-- Login  -->
+						<li><a href="Login.jsp" style="color:#000000">Login</a></li>
+						
+						<!-- Iscriviti -->
+						<li><a href="Subscribe.jsp" style="color:#000000">Iscriviti</a></li>
+						<%
+   						}
+						%>
+					</ul>
+				</div>
+			</div>
+		</nav>
     <form action="getCurriculaFromLaureaOff" method = "post">
     	  <input type="hidden" name="nomeOfferta" value="<%=of.getAnnoOffertaFormativa() %>">
 	      <input type="hidden" name="laurea" value="<%=cd.get(0).isTipo()%>">
@@ -315,11 +349,11 @@
         					</form>
         					</td>
       					</tr>
-	     			<%}
-	   				}%>
+						  <%} %>
 	     		</tbody>
 	     	</table>
 	     </div>
+		 <%} %>
 	   <!-- esami obbligatori anno 2 -->
     	<%for(int i = 0; i < ob2.size(); i++){ %>
     		
@@ -411,12 +445,11 @@
         					</td>
       					</tr>
       				
-	     			<%}
-	   				}%>
+					 <%} %>
 	     		</tbody>
 	     	</table>
 	     </div>
-    	
+		 <%} %>
       <!-- esami obbligatori anno 3 -->
     <%for(int i = 0; i < ob3.size(); i++){ %>
     		
@@ -508,14 +541,13 @@
         					</td>
       					</tr>
       					
-	     			<%}
-	   				}%>
+						<%} %>
 	     		</tbody>
 	     	</table>
 	     </div>
-	     
+	     <%} %>
 		  <!-- Scelta libera -->
-			<h3><b>Scelta libera: 12CFU </b></h3>
+		  <h3><b>Scelta libera CFU minimi selezionabili: 12</b></h3>
 
 		<div class="table-wrapper-scroll-y">
 		  <table class="table table-bordered table-striped">
@@ -580,5 +612,68 @@
    		<button name="fine" id="fine" class="btn btn-default btn-responsive center-block buttonwidth">Fine</button>
   	</form>
   	<br>
+  	<%
+  	 if (utente != null ) {
+					%>	
+					  
+					
+  <button id="salva" class="btn btn-default btn-responsive center-block buttonwidth">Salva per dopo</button>
+
+  <div id="nomePopup" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Inserisci un nome</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="text" id="nome" placeholder="Inserisci un nome" class="form-control">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="salvaPopup">Salva</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    $(document).ready(function() {
+      $("#salva").click(function() {
+        $("#nomePopup").modal('show');
+      });
+
+      $("#salvaPopup").click(function() {
+        var nome = $("#nome").val();
+        var utente = '<%= session.getAttribute("utente") %>';
+        var risultato = utente + nome;
+        console.log(risultato);
+
+        $.ajax({
+          url: "selectionOfferta",
+          type: "POST",
+          data: {
+            metodo: "salva",
+            risultato: risultato
+          },
+          success: function(response) {
+            // La richiesta è stata elaborata con successo
+            console.log(response);
+          },
+          error: function(xhr, status, error) {
+            // Si è verificato un errore durante la richiesta
+            console.error(error);
+          }
+        });
+
+        $("#nomePopup").modal('hide');
+      });
+    });
+  </script>
+  	 <%
+   					} %>
   </body>
 </html>

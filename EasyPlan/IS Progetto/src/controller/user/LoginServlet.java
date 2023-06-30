@@ -1,6 +1,7 @@
-package controller.gestione.amministratore;
+package controller.user;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
@@ -11,26 +12,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.amministratore.AmministratoreBean;
-import model.amministratore.AmministratoreBeanDao;
+import model.utente.UtenteBean;
+import model.utente.UtenteBeanDao;
 
 /**
- * Servlet implementation class AmministratoreServlet.
- * 
- * @author carmine
- *
- * @version 1.0
+ * Servlet implementation class LoginServlet.
  */
 
-@WebServlet("/AmministratoreServlet")
-public class AmministratoreServlet extends HttpServlet {
+@WebServlet("/LoginServlet")
+public class LoginServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   /**
    * costruttore vuoto.
    * @see HttpServlet#HttpServlet()
    */
-  public AmministratoreServlet() {
+  public LoginServlet() {
     super();
   }
 
@@ -58,7 +55,8 @@ public class AmministratoreServlet extends HttpServlet {
    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
    *      response)
    */
-  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+      throws ServletException, IOException {
     String user = request.getParameter("username");
     String password = request.getParameter("pwd");
 
@@ -66,26 +64,42 @@ public class AmministratoreServlet extends HttpServlet {
     synchronized (session) {
       if (missingData(user) && validateField(user, "[0-9a-zA-Z\\S]+")) {
         if (missingData(password) && validateField(password, "([A-Za-z0-9]){3,16}")) {
-          AmministratoreBeanDao amDao = new AmministratoreBeanDao();
-          AmministratoreBean am = amDao.doRetrieveByKey(user);
+          UtenteBeanDao amDao = new UtenteBeanDao();
+          UtenteBean am = amDao.doRetrieveByKey(user);
 
-          if (am != null && am.getPassword().equals(password)) {
+          if (am != null && am.getPassword().equals(password) && am.getUsername().equals("admin")) {
             session.setAttribute("amministratore", user);
             session.setAttribute("password", password);
 
             RequestDispatcher view = request.getRequestDispatcher("GestioneOfferteFormative.jsp");
             view.forward(request, response);
+            
 
-          } else {
-            RequestDispatcher view = request.getRequestDispatcher("Login.html");
-            view.forward(request, response);
+          } 
+        //Login per l'utente
+         else if(am != null && am.getPassword().equals(password)) {
+        	  session.setAttribute("utente", user);
+              session.setAttribute("password", password);
+              
+              RequestDispatcher view = request.getRequestDispatcher("Homepage.jsp");
+              view.forward(request, response);
+          }
+        	  
+        	  
+          else
+          {
+        	// Aggiungi il messaggio di errore come parametro nell'URL
+              String errorMessage = "Username o password errati";
+              String redirectURL = "Login.jsp?error=" + URLEncoder.encode(errorMessage, "UTF-8");
+              response.sendRedirect(redirectURL);
+            
           }
         } else {
-          RequestDispatcher view = request.getRequestDispatcher("Login.html");
+          RequestDispatcher view = request.getRequestDispatcher("Login.jsp");
           view.forward(request, response);
         }
       } else {
-        RequestDispatcher view = request.getRequestDispatcher("Login.html");
+        RequestDispatcher view = request.getRequestDispatcher("Login.jsp");
         view.forward(request, response);
       }
     }

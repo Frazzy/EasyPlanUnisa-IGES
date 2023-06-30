@@ -1,3 +1,14 @@
+<%@page import="model.curriculum.CurriculumBeanDao"%>
+<%@page import="model.curriculum.CurriculumBean"%>
+<%@page import="java.util.ArrayList" pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html; charset=UTF-8"%>
+
+<%
+   String utente = (String) session.getAttribute("utente");
+   String amministratore = (String) session.getAttribute("amministratore");
+%>
+
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -19,7 +30,9 @@
     	</style>
 	</head>
 	<body>
-		<nav class="navbar navbar-inverse ">
+	
+	
+		   <nav class="navbar navbar-inverse ">
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -29,8 +42,24 @@
 					</button>
 				</div>
 				<div class="collapse navbar-collapse" id="myNavbar">
+				
 					<ul class="nav navbar-nav navbar-right">
-<!-- "Login amministratore" --><li><a href="Login.html" style="color:#000000">Admin</a></li>
+					<%
+  
+  					 if (utente != null || amministratore!= null ) {
+					%>	
+					  <li><a href="Logout" style="color:#000000">Log out <span class="glyphicon glyphicon-log-out"></span></a></li>
+					 <%
+   					} else {
+						%>
+						<!-- Login  -->
+						<li><a href="Login.jsp" style="color:#000000">Login</a></li>
+						
+						<!-- Iscriviti -->
+						<li><a href="Subscribe.jsp" style="color:#000000">Iscriviti</a></li>
+						<%
+   						}
+						%>
 					</ul>
 				</div>
 			</div>
@@ -41,6 +70,7 @@
 		<form action="SelezionaOffertaFormativa.jsp" method = "post">
    			<button name="button" class="btn btn-default btn-responsive center-block centerButton buttonwidth">Formula il tuo piano di studi</button>
    		</form>
+   		
    		</div>
 	</body>
 </html>

@@ -4,7 +4,11 @@
     <%
     	OffertaFormativaBean of = (OffertaFormativaBean) request.getAttribute("offertaFormativa"); 
     	ArrayList<CorsoDiLaureaBean> cd = of.getLauree();
+    	String utente = (String) session.getAttribute("utente");
+    	   
     %>
+    
+    
 <!DOCTYPE html>
 <html>
   <head>
@@ -27,21 +31,37 @@
   </head>
   <body>
     <nav class="navbar navbar-inverse ">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav navbar-right">
-<!-- "Login amministratore" --><li><a href="Login.html" style="color:#000000">Admin</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>                        
+					</button>
+				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+				
+					<ul class="nav navbar-nav navbar-right">
+					<%
+  
+  					 if (utente != null ) {
+					%>	
+					  <li><a href="Logout" style="color:#000000">Log out <span class="glyphicon glyphicon-log-out"></span></a></li>
+					 <%
+   					} else {
+						%>
+						<!-- Login  -->
+						<li><a href="Login.jsp" style="color:#000000">Login</a></li>
+						
+						<!-- Iscriviti -->
+						<li><a href="Subscribe.jsp" style="color:#000000">Iscriviti</a></li>
+						<%
+   						}
+						%>
+					</ul>
+				</div>
+			</div>
+		</nav>
     <form action="SelezionaOffertaFormativa.jsp" method = "post">
     	<button name="button" id="laureaScelta" class="btn btn-default btn-responsive left-block">Indietro</button>
     </form>

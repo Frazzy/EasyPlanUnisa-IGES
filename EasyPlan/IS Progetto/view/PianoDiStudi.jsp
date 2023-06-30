@@ -16,6 +16,7 @@
 	ArrayList<GruppoEsamiOpzionaliBean> op3 = (ArrayList<GruppoEsamiOpzionaliBean>) session.getAttribute("o3");
 	ArrayList<EsameBean> lib=(ArrayList<EsameBean>) session.getAttribute("libera");
 	int totalicfuLibScelti= (int)session.getAttribute("totalecfuSelLib");
+	String utente = (String) session.getAttribute("utente");
      %>
      
      
@@ -59,9 +60,25 @@
           </button>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav navbar-right">
-<!-- "Login amministratore" --><li><a href="Login.html" style="color:#000000">Admin</a></li>
-          </ul>
+			<ul class="nav navbar-nav navbar-right">
+				<%
+
+				   if (utente != null ) {
+				%>	
+				  <li><a href="Logout" style="color:#000000">Log out <span class="glyphicon glyphicon-log-out"></span></a></li>
+				  <li><a href="PlanLoader.jsp" style="color:#000000">Carica un piano <span class="glyphicon glyphicon-log-out"></span></a></li>
+				 <%
+				   } else {
+					%>
+					<!-- Login  -->
+					<li><a href="Login.jsp" style="color:#000000">Login</a></li>
+					
+					<!-- Iscriviti -->
+					<li><a href="Subscribe.jsp" style="color:#000000">Iscriviti</a></li>
+					<%
+					   }
+					%>
+				</ul>
         </div>
       </div>
     </nav>

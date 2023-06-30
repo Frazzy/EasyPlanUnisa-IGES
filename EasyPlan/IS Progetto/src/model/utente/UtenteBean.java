@@ -1,6 +1,6 @@
-package model.amministratore;
+package model.utente;
 
-public class AmministratoreBean {
+public class UtenteBean {
 
   // variabili d'istanza
   private String username;
@@ -9,14 +9,14 @@ public class AmministratoreBean {
   /**
    * Metodo costruttore vuoto.
    */
-  public AmministratoreBean() {}
+  public UtenteBean() {}
 
   /**
    * Costruttore con parametri.
-   * @param username username dell'amministratore
-   * @param password password dell'amministratore
+   * @param username username dell'utente
+   * @param password password dell'utente
    */
-  public AmministratoreBean(String username, String password) {
+  public UtenteBean(String username, String password) {
     this.username = username;
     this.password = password;
   }
@@ -41,7 +41,7 @@ public class AmministratoreBean {
   // METODI OBJECT
   @Override
   public String toString() {
-    return "AmministratoreBean [username=" + username + ", password=" + password + "]";
+    return "UtenteBean [username=" + username + ", password=" + password + "]";
   }
 
   @Override
@@ -61,7 +61,7 @@ public class AmministratoreBean {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    AmministratoreBean other = (AmministratoreBean) obj;
+    UtenteBean other = (UtenteBean) obj;
     if (password == null) {
       if (other.password != null)
         return false;

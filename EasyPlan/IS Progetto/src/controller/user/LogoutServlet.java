@@ -1,4 +1,4 @@
-package controller.gestione.amministratore;
+package controller.user;
 
 import java.io.IOException;
 
@@ -34,35 +34,23 @@ public class LogoutServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response) 
       throws ServletException, IOException {
 
-    HttpSession session = request.getSession(true);
-    synchronized (session) {
-      if (session.getAttribute("amministratore") == null 
-          && session.getAttribute("password") == null) {
-        RequestDispatcher view = request.getRequestDispatcher("Login.html");
-        view.forward(request, response);
-
-      }
-    }
-    session.invalidate(); // chiude la sessione
-
-    Cookie[] cookies = request.getCookies();
-
-    // ciclo per eliminare i cookie
-    if (cookies != null) {
-      for (int i = 0; i < cookies.length; i++) {
-        Cookie c = cookies[i];
-
-        if (c.getName().equals("JSESSIONID")) {
-          c.setMaxAge(0);
-          c.setPath("/Nia");
-          response.addCookie(c);
-        }
+    HttpSession session = request.getSession(false); // Otteniamo la sessione esistente senza crearne una nuova
+    if (session != null) {
+      if (session.getAttribute("amministratore") != null) {
+        // Se l'utente � un admin, invalidiamo la sessione e reindirizziamo alla pagina di login per admin
+        session.invalidate();
+        response.sendRedirect("Homepage.jsp");
+        return;
+      } else if (session.getAttribute("utente") != null) {
+        // Se l'utente � un user, invalidiamo la sessione e reindirizziamo alla pagina di login per user
+        session.invalidate();
+        response.sendRedirect("Homepage.jsp");
+        return;
       }
     }
 
-    // chiamo l'index.html
-    RequestDispatcher view = request.getRequestDispatcher("Login.html");
-    view.forward(request, response);
+    // Redirect alla homepage di default
+    response.sendRedirect("Homepage.jsp");
   }
 
   /**
@@ -72,8 +60,9 @@ public class LogoutServlet extends HttpServlet {
    */
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    // TODO Auto-generated method stub
+    // Chiamata al metodo doGet per gestire il logout
     doGet(request, response);
   }
 
 }
+

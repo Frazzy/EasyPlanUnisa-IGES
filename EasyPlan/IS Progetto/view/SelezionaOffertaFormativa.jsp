@@ -8,6 +8,10 @@
               	OffertaFormativaBeanDao ofbd = new OffertaFormativaBeanDao();
               	of = ofbd.doRetriveByAll();
          %>
+         <%
+         String utente = (String) session.getAttribute("utente");
+         String amministratore = (String) session.getAttribute("amministratore");
+      %>
      
      
 <!DOCTYPE html>
@@ -42,12 +46,27 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav navbar-right">
-<!-- "Login amministratore" --><li><a href="Login.html" style="color:#000000">Admin</a></li>
-          </ul>
+            <%
+    
+               if (utente != null || amministratore!= null ) {
+            %>	
+              <li><a href="Logout" style="color:#000000">Log out <span class="glyphicon glyphicon-log-out"></span></a></li>
+             <%
+               } else {
+              %>
+              <!-- Login  -->
+              <li><a href="Login.jsp" style="color:#000000">Login</a></li>
+              
+              <!-- Iscriviti -->
+              <li><a href="Subscribe.jsp" style="color:#000000">Iscriviti</a></li>
+              <%
+                 }
+              %>
+            </ul>
         </div>
       </div>
     </nav>
-    <form action="Homepage.html" method = "post">
+    <form action="Homepage.jsp" method = "post">
     	<button name="button"  class="btn btn-default btn-responsive left-block">Indietro</button>
     </form>
     <img alt="logo" src="immagini/logo.png" class="img-responsive center-block centerImg">

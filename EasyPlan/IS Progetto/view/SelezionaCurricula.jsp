@@ -8,6 +8,7 @@
      	OffertaFormativaBean of = (OffertaFormativaBean) request.getAttribute("offertaFormativa"); 
     	ArrayList<CorsoDiLaureaBean> cd = of.getLauree();
     	ArrayList<CurriculumBean> cm = cd.get(0).getCurricula();
+      String utente = (String) session.getAttribute("utente");
      %>
      
      
@@ -49,8 +50,23 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav navbar-right">
-<!-- "Login amministratore" --><li><a href="Login.html" style="color:#000000">Admin</a></li>
-          </ul>
+            <%
+    
+               if (utente != null) {
+            %>	
+              <li><a href="Logout" style="color:#000000">Log out <span class="glyphicon glyphicon-log-out"></span></a></li>
+             <%
+               } else {
+              %>
+              <!-- Login  -->
+              <li><a href="Login.jsp" style="color:#000000">Login</a></li>
+              
+              <!-- Iscriviti -->
+              <li><a href="Subscribe.jsp" style="color:#000000">Iscriviti</a></li>
+              <%
+                 }
+              %>
+            </ul>
         </div>
       </div>
     </nav>
