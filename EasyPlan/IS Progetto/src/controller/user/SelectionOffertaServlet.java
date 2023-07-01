@@ -112,7 +112,7 @@ public class SelectionOffertaServlet extends HttpServlet {
             if (cfu > compCfu) {
               pass = false;
               session.setAttribute("errore",
-                  "CFU minimi del gruppo opzionale del 1� anno da " + cfu + " cfu non rispettati");
+                  "CFU minimi del gruppo opzionale del 1° anno da " + cfu + " cfu non rispettati");
             } else if (cfu <= compCfu) {
               pass = true;
             }
@@ -123,7 +123,7 @@ public class SelectionOffertaServlet extends HttpServlet {
           } else {
             request.setAttribute("offertaFormativa", of);
             session.setAttribute("errore",
-                "CFU minimi del gruppo opzionale del 1� anno da " + cfu + " cfu non rispettati");
+                "CFU minimi del gruppo opzionale del 1° anno da " + cfu + " cfu non rispettati");
 
             session.removeAttribute("o1");
             session.setAttribute("o1", op1);

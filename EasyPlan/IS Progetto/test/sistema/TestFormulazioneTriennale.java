@@ -12,7 +12,7 @@ public class TestFormulazioneTriennale {
 
 	static SelezionaChromeDriverSO so = new SelezionaChromeDriverSO();
 	public static final String PATH= so.selezionaChromeDriver();
-	public static final String URL="http://localhost:8080/IS_Progetto/Homepage.html";
+	public static final String URL="http://localhost:8080/IS_Progetto/Homepage.jsp";
 	
 	//TC_1.4_1
 	public static void test1() throws InterruptedException {
@@ -74,7 +74,7 @@ public class TestFormulazioneTriennale {
 		      
 		      driver.findElement(By.xpath("//*[@id=\"c\"]")).click();
 		      
-		      driver.findElement(By.xpath("/html/body/div[5]/table/tbody/tr[1]/td[2]/form/label/span")).click();
+		      driver.findElement(By.xpath("/html/body/div/div[5]/table/tbody/tr[1]/td[2]/form/label/span")).click();
 		      
 		      
 		      
@@ -115,8 +115,8 @@ public class TestFormulazioneTriennale {
 	      
 	      driver.findElement(By.xpath("//*[@id=\"c\"]")).click();
 	      
-	      driver.findElement(By.xpath("/html/body/div[4]/table/tbody/tr[1]/td[2]/form/label/span")).click();
-	      driver.findElement(By.xpath("/html/body/div[5]/table/tbody/tr[1]/td[2]/form/label/span")).click();
+	      driver.findElement(By.xpath("/html/body/div/div[4]/table/tbody/tr[1]/td[2]/form/label/span")).click();
+	      driver.findElement(By.xpath("/html/body/div/div[5]/table/tbody/tr[1]/td[2]/form/label/span")).click();
 	      
 	      driver.findElement(By.xpath("//*[@id=\"fine\"]")).click();
 	      
@@ -152,8 +152,8 @@ public class TestFormulazioneTriennale {
 		      
 		      driver.findElement(By.xpath("//*[@id=\"c\"]")).click();
 		      
-		      driver.findElement(By.xpath("/html/body/div[5]/table/tbody/tr[1]/td[2]/form/label/span")).click();
-		      driver.findElement(By.xpath("/html/body/div[5]/table/tbody/tr[2]/td[2]/form/label/span")).click();
+		      driver.findElement(By.xpath("/html/body/div/div[5]/table/tbody/tr[1]/td[2]/form/label/span")).click();
+		      driver.findElement(By.xpath("/html/body/div/div[5]/table/tbody/tr[2]/td[2]/form/label/span")).click();
 		      
 		      driver.findElement(By.xpath("//*[@id=\"fine\"]")).click();
 		      
@@ -190,10 +190,10 @@ public class TestFormulazioneTriennale {
 				      driver.findElement(By.xpath("//*[@id=\"c\"]")).click();
 				      
 				      
-				      driver.findElement(By.xpath("/html/body/div[4]/table/tbody/tr[4]/td[2]/form/label/span")).click();
+				      driver.findElement(By.xpath("/html/body/div/div[4]/table/tbody/tr[4]/td[2]/form/label/span")).click();
 				      
-				      driver.findElement(By.xpath("/html/body/div[5]/table/tbody/tr[1]/td[2]/form/label/span")).click();
-				      driver.findElement(By.xpath("/html/body/div[5]/table/tbody/tr[2]/td[2]/form/label/span")).click();
+				      driver.findElement(By.xpath("/html/body/div/div[5]/table/tbody/tr[1]/td[2]/form/label/span")).click();
+				      driver.findElement(By.xpath("/html/body/div/div[5]/table/tbody/tr[2]/td[2]/form/label/span")).click();
 				      
 				      driver.findElement(By.xpath("//*[@id=\"fine\"]")).click();
 				      

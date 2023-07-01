@@ -12,7 +12,7 @@ public class TestFormulazioneMagistrale {
 
 	  static SelezionaChromeDriverSO so = new SelezionaChromeDriverSO();
 	  public static final String PATH= so.selezionaChromeDriver();
-	  public static final String URL="http://localhost:8080/IS_Progetto/Homepage.html";
+	  public static final String URL="http://localhost:8080/IS_Progetto/Homepage.jsp";
 	  
 	  
 	//TC_1.5_1
@@ -40,7 +40,7 @@ public class TestFormulazioneMagistrale {
 	        sicurezzaInformaticaButton.click(); //sceglie Sicurezza
 	        
 	        //Sceglie i vari esami in maniera casuale per completare il piano di studi
-	        driver.findElement(By.xpath("/html/body/div[1]/div[2]/table/tbody/tr[2]/td[2]/form/label/span")).click();    
+	        driver.findElement(By.xpath("/html/body/div/div[2]/table/tbody/tr[2]/td[2]/form/label/span")).click();    
 	        
 	        driver.findElement(By.xpath("//*[@id=\"fine\"]")).click(); //Clicca il tasto di fine per completare
 	        
@@ -81,7 +81,7 @@ public class TestFormulazioneMagistrale {
 	        
 	        //Sceglie i vari esami in maniera casuale per completare il piano di studi
 	         
-	        driver.findElement(By.xpath("/html/body/div[1]/div[4]/table/tbody/tr[1]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[4]/table/tbody/tr[1]/td[2]/form/label/span")).click();
 	        
 	        driver.findElement(By.xpath("//*[@id=\"fine\"]")).click(); //Clicca il tasto di fine per completare
 	        
@@ -118,7 +118,7 @@ public class TestFormulazioneMagistrale {
 	        
 	        //Sceglie i vari esami in maniera casuale per completare il piano di studi
 	        
-	        driver.findElement(By.xpath("/html/body/div[2]/table/tbody/tr[1]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[5]/table/tbody/tr[1]/td[2]/form/label/span")).click();
 	        
 	        
 	        driver.findElement(By.xpath("//*[@id=\"fine\"]")).click(); //Clicca il tasto di fine per completare
@@ -156,13 +156,13 @@ public class TestFormulazioneMagistrale {
 	        
 	        //Sceglie i vari esami in maniera casuale per completare il piano di studi
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[2]/table/tbody/tr[1]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[2]/table/tbody/tr[1]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[2]/table/tbody/tr[2]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[2]/table/tbody/tr[2]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[2]/table/tbody/tr[3]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[2]/table/tbody/tr[3]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[4]/table/tbody/tr[1]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[4]/table/tbody/tr[1]/td[2]/form/label/span")).click();
 	        
 	        driver.findElement(By.xpath("//*[@id=\"fine\"]")).click(); //Clicca il tasto di fine per completare
 	        
@@ -201,15 +201,15 @@ public class TestFormulazioneMagistrale {
 	        
 	        //Sceglie i vari esami in maniera casuale per completare il piano di studi
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[4]/table/tbody/tr[4]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[4]/table/tbody/tr[4]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[4]/table/tbody/tr[2]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[4]/table/tbody/tr[2]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[4]/table/tbody/tr[3]/td[2]/form/label/span")).click();
-	        driver.findElement(By.xpath("/html/body/div[1]/div[4]/table/tbody/tr[5]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[4]/table/tbody/tr[3]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[4]/table/tbody/tr[5]/td[2]/form/label/span")).click();
 	        
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[2]/table/tbody/tr[1]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[2]/table/tbody/tr[1]/td[2]/form/label/span")).click();
 	        
 
 	        
@@ -250,13 +250,13 @@ public class TestFormulazioneMagistrale {
 	        
 	        //Sceglie i vari esami in maniera casuale per completare il piano di studi
 	        
-            driver.findElement(By.xpath("/html/body/div[1]/div[2]/table/tbody/tr[1]/td[2]/form/label/span")).click(); //click sul primo gruppo opzionale
+            driver.findElement(By.xpath("/html/body/div/div[2]/table/tbody/tr[1]/td[2]/form/label/span")).click(); //click sul primo gruppo opzionale
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[2]/table/tbody/tr[2]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[2]/table/tbody/tr[2]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[2]/table/tbody/tr[3]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[2]/table/tbody/tr[3]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[2]/table/tbody/tr[1]/td[2]/form/label/span")).click(); //click su scelta libera
+	        driver.findElement(By.xpath("/html/body/div/div[5]/table/tbody/tr[1]/td[2]/form/label/span")).click(); //click su scelta libera
 
 	        
 	        driver.findElement(By.xpath("//*[@id=\"fine\"]")).click(); //Clicca il tasto di fine per completare
@@ -295,15 +295,15 @@ public class TestFormulazioneMagistrale {
 	        
 	        //Sceglie i vari esami in maniera casuale per completare il piano di studi
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[4]/table/tbody/tr[4]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[4]/table/tbody/tr[4]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[4]/table/tbody/tr[2]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[4]/table/tbody/tr[2]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[4]/table/tbody/tr[3]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[4]/table/tbody/tr[3]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[4]/table/tbody/tr[5]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[4]/table/tbody/tr[5]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[2]/table/tbody/tr[1]/td[2]/form/label/span")).click(); //click su scelta libera
+	        driver.findElement(By.xpath("/html/body/div/div[5]/table/tbody/tr[1]/td[2]/form/label/span")).click(); //click su scelta libera
 
 	        
 	        driver.findElement(By.xpath("//*[@id=\"fine\"]")).click(); //Clicca il tasto di fine per completare
@@ -344,10 +344,10 @@ public class TestFormulazioneMagistrale {
 	        //Sceglie i vari esami in maniera casuale per completare il piano di studi
 	        
 
-	        driver.findElement(By.xpath("/html/body/div[2]/table/tbody/tr[3]/td[2]/form/label/span")).click(); //click su scelta libera
-	        driver.findElement(By.xpath("/html/body/div[2]/table/tbody/tr[2]/td[2]/form/label/span")).click(); //click su scelta libera
+	        driver.findElement(By.xpath("/html/body/div/div[5]/table/tbody/tr[3]/td[2]/form/label/span")).click(); //click su scelta libera
+	        driver.findElement(By.xpath("/html/body/div/div[5]/table/tbody/tr[2]/td[2]/form/label/span")).click(); //click su scelta libera
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[2]/table/tbody/tr[4]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[2]/table/tbody/tr[4]/td[2]/form/label/span")).click();
 	        
 
 	        
@@ -388,10 +388,10 @@ public class TestFormulazioneMagistrale {
 	        //Sceglie i vari esami in maniera casuale per completare il piano di studi
 	        
 
-	        driver.findElement(By.xpath("/html/body/div[2]/table/tbody/tr[3]/td[2]/form/label/span")).click(); //click su scelta libera
-	        driver.findElement(By.xpath("/html/body/div[2]/table/tbody/tr[2]/td[2]/form/label/span")).click(); //click su scelta libera
+	        driver.findElement(By.xpath("/html/body/div/div[5]/table/tbody/tr[3]/td[2]/form/label/span")).click(); //click su scelta libera
+	        driver.findElement(By.xpath("/html/body/div/div[5]/table/tbody/tr[2]/td[2]/form/label/span")).click(); //click su scelta libera
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[4]/table/tbody/tr[5]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[4]/table/tbody/tr[5]/td[2]/form/label/span")).click();
 	        
 
 	        
@@ -433,22 +433,22 @@ public class TestFormulazioneMagistrale {
 	        //Sceglie i vari esami in maniera casuale per completare il piano di studi
 	        
 
-	        driver.findElement(By.xpath("/html/body/div[1]/div[2]/table/tbody/tr[2]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[2]/table/tbody/tr[2]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[2]/table/tbody/tr[3]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[2]/table/tbody/tr[3]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[2]/table/tbody/tr[4]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[2]/table/tbody/tr[4]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[4]/table/tbody/tr[1]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[4]/table/tbody/tr[1]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[4]/table/tbody/tr[2]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[4]/table/tbody/tr[2]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[4]/table/tbody/tr[3]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[4]/table/tbody/tr[3]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[4]/table/tbody/tr[4]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[4]/table/tbody/tr[4]/td[2]/form/label/span")).click();
 	        
 	        
-	        driver.findElement(By.xpath("/html/body/div[2]/table/tbody/tr[1]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[5]/table/tbody/tr[1]/td[2]/form/label/span")).click();
 	        
 
 	        
@@ -490,18 +490,18 @@ public class TestFormulazioneMagistrale {
 	        //Sceglie i vari esami in maniera casuale per completare il piano di studi
 	        
 
-	        driver.findElement(By.xpath("/html/body/div[1]/div[2]/table/tbody/tr[2]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[2]/table/tbody/tr[2]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[2]/table/tbody/tr[3]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[2]/table/tbody/tr[3]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[2]/table/tbody/tr[4]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[2]/table/tbody/tr[4]/td[2]/form/label/span")).click();
 	       
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[4]/table/tbody/tr[3]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[4]/table/tbody/tr[3]/td[2]/form/label/span")).click();
 	        
 	        
-	        driver.findElement(By.xpath("/html/body/div[2]/table/tbody/tr[5]/td[2]/form/label/span")).click();
-	        driver.findElement(By.xpath("/html/body/div[2]/table/tbody/tr[6]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[5]/table/tbody/tr[5]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[5]/table/tbody/tr[6]/td[2]/form/label/span")).click();
 	        
 
 	        
@@ -539,19 +539,19 @@ public class TestFormulazioneMagistrale {
 	        sicurezzaInformaticaButton.click(); //sceglie Sicurezza
 	        
 	        //Sceglie i vari esami in maniera casuale per completare il piano di studi
-	        driver.findElement(By.xpath("/html/body/div[1]/div[2]/table/tbody/tr[2]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[2]/table/tbody/tr[2]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[4]/table/tbody/tr[1]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[4]/table/tbody/tr[1]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[4]/table/tbody/tr[2]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[4]/table/tbody/tr[2]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[4]/table/tbody/tr[3]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[4]/table/tbody/tr[3]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[4]/table/tbody/tr[4]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[4]/table/tbody/tr[4]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[2]/table/tbody/tr[5]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[5]/table/tbody/tr[5]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[2]/table/tbody/tr[7]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[5]/table/tbody/tr[7]/td[2]/form/label/span")).click();
 	        
 	        driver.findElement(By.xpath("//*[@id=\"fine\"]")).click(); //Clicca il tasto di fine per completare
 	        
@@ -590,24 +590,24 @@ public class TestFormulazioneMagistrale {
 	        //Sceglie i vari esami in maniera casuale per completare il piano di studi
 	        
 
-	        driver.findElement(By.xpath("/html/body/div[1]/div[2]/table/tbody/tr[2]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[2]/table/tbody/tr[2]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[2]/table/tbody/tr[3]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[2]/table/tbody/tr[3]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[2]/table/tbody/tr[4]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[2]/table/tbody/tr[4]/td[2]/form/label/span")).click();
 	        
 
-	        driver.findElement(By.xpath("/html/body/div[1]/div[4]/table/tbody/tr[1]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[4]/table/tbody/tr[1]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[4]/table/tbody/tr[2]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[4]/table/tbody/tr[2]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[4]/table/tbody/tr[3]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[4]/table/tbody/tr[3]/td[2]/form/label/span")).click();
 	        
-	        driver.findElement(By.xpath("/html/body/div[1]/div[4]/table/tbody/tr[4]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[4]/table/tbody/tr[4]/td[2]/form/label/span")).click();
 	        
 	        
-	        driver.findElement(By.xpath("/html/body/div[2]/table/tbody/tr[5]/td[2]/form/label/span")).click();
-	        driver.findElement(By.xpath("/html/body/div[2]/table/tbody/tr[6]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[5]/table/tbody/tr[5]/td[2]/form/label/span")).click();
+	        driver.findElement(By.xpath("/html/body/div/div[5]/table/tbody/tr[6]/td[2]/form/label/span")).click();
 	        
 
 	        

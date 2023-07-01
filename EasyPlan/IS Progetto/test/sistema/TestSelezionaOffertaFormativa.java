@@ -12,7 +12,7 @@ public class TestSelezionaOffertaFormativa {
 
 	  static SelezionaChromeDriverSO so = new SelezionaChromeDriverSO();
 	  public static final String PATH= so.selezionaChromeDriver();
-	  public static final String URL="http://localhost:8080/IS_Progetto/Homepage.html";
+	  public static final String URL="http://localhost:8080/IS_Progetto/Homepage.jsp";
 	  
 	  //TC_1.1_1
 	  public static void test1() throws InterruptedException {

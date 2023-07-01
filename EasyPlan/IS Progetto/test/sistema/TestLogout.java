@@ -10,11 +10,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class TestLogout {
 	static SelezionaChromeDriverSO so = new SelezionaChromeDriverSO();
 	public static final String PATH= so.selezionaChromeDriver();
-	public static final String URL="http://localhost:8080/IS_Progetto/Homepage.html";
+	public static final String URL="http://localhost:8080/IS_Progetto/Homepage.jsp";
 
 
 	
-	//TC_2.1_1
+	//TC_2.2_1
 	public static void test1() throws InterruptedException {
 		// TODO Auto-generated method stub
 

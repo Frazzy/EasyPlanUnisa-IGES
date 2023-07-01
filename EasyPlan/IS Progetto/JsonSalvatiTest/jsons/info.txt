@@ -1,0 +1,1 @@
+Cartella utilizzata al solo scopo di testare il salvataggio di un piano di studi

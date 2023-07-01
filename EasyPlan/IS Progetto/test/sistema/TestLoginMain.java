@@ -18,6 +18,7 @@ public class TestLoginMain {
 		  TestLogin.test10();
 		  TestLogin.test11();
 		  TestLogin.test12();
+		  TestLogin.test13();
 	  
 	  }
 	  

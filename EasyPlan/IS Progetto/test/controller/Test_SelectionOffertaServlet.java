@@ -761,9 +761,19 @@ public class Test_SelectionOffertaServlet extends SelectionOffertaServlet {
 	  //TC_4.1.1
 	    @Test
 	    public void testSalvaPiano1() throws ServletException, IOException {
-	    	byte[] array = new byte[7]; // length is bounded by 7
-	        new Random().nextBytes(array);
-	        String risultato = new String(array, Charset.forName("UTF-8"));
+	    	int length = 7; // Lunghezza della stringa casuale
+            String allowedCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+            StringBuilder sb = new StringBuilder(length);
+            Random random = new Random();
+
+            for (int i = 0; i < length; i++) {
+                int randomIndex = random.nextInt(allowedCharacters.length());
+                char randomChar = allowedCharacters.charAt(randomIndex);
+                sb.append(randomChar);
+            }
+
+            String risultato = sb.toString();
 	    	String path=System.getProperty("user.dir") + "/JsonSalvatiTest/";
 	    	
 

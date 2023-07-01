@@ -63,7 +63,7 @@
 						<%
   							if (utente != null) {
 						%>	
-					   		<li><a href="LogoutServlet" style="color:#000000">Log out <span class="glyphicon glyphicon-log-out"></span></a></li>
+					   		<li><a href="Logout" style="color:#000000">Log out <span class="glyphicon glyphicon-log-out"></span></a></li>
 					   		<%
    							} else {
 							%>
