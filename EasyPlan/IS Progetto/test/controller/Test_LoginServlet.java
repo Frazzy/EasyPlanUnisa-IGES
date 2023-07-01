@@ -2,6 +2,8 @@ package controller;
 
 import static org.mockito.Mockito.*;
 
+import java.net.URLEncoder;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,11 +15,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import model.amministratore.AmministratoreBean;
-import model.amministratore.AmministratoreBeanDao;
-import controller.gestione.amministratore.*;
 
-public class Test_AmministratoreServlet extends AmministratoreServlet{
+import controller.user.*;
+
+public class Test_LoginServlet extends LoginServlet{
   @Mock
   private HttpServletRequest request;
   
@@ -46,7 +47,7 @@ public class Test_AmministratoreServlet extends AmministratoreServlet{
     when(request.getParameter("pwd")).thenReturn(password);
     when(request.getSession(true)).thenReturn(session);
     
-    when(request.getRequestDispatcher("Login.html")).thenReturn(requestDispatcher);
+    when(request.getRequestDispatcher("Login.jsp")).thenReturn(requestDispatcher);
     
     doPost(request, response);
     verify(requestDispatcher).forward(request, response);
@@ -61,7 +62,7 @@ public class Test_AmministratoreServlet extends AmministratoreServlet{
     when(request.getParameter("pwd")).thenReturn(password);
     when(request.getSession(true)).thenReturn(session);
    
-    when(request.getRequestDispatcher("Login.html")).thenReturn(requestDispatcher);
+    when(request.getRequestDispatcher("Login.jsp")).thenReturn(requestDispatcher);
     
     doPost(request, response);
  
@@ -77,7 +78,7 @@ public class Test_AmministratoreServlet extends AmministratoreServlet{
     when(request.getParameter("pwd")).thenReturn(password);
     when(request.getSession(true)).thenReturn(session);
     
-    when(request.getRequestDispatcher("Login.html")).thenReturn(requestDispatcher);
+    when(request.getRequestDispatcher("Login.jsp")).thenReturn(requestDispatcher);
     
     doPost(request, response);
     
@@ -94,7 +95,7 @@ public class Test_AmministratoreServlet extends AmministratoreServlet{
     when(request.getParameter("pwd")).thenReturn(password);
     when(request.getSession(true)).thenReturn(session);
     
-    when(request.getRequestDispatcher("Login.html")).thenReturn(requestDispatcher);
+    when(request.getRequestDispatcher("Login.jsp")).thenReturn(requestDispatcher);
     
     doPost(request, response);
     
@@ -111,7 +112,7 @@ public class Test_AmministratoreServlet extends AmministratoreServlet{
     when(request.getParameter("pwd")).thenReturn(password);
     when(request.getSession(true)).thenReturn(session);
     
-    when(request.getRequestDispatcher("Login.html")).thenReturn(requestDispatcher);
+    when(request.getRequestDispatcher("Login.jsp")).thenReturn(requestDispatcher);
     
     doPost(request, response);
     
@@ -128,7 +129,7 @@ public class Test_AmministratoreServlet extends AmministratoreServlet{
     when(request.getParameter("pwd")).thenReturn(password);
     when(request.getSession(true)).thenReturn(session);
    
-    when(request.getRequestDispatcher("Login.html")).thenReturn(requestDispatcher);
+    when(request.getRequestDispatcher("Login.jsp")).thenReturn(requestDispatcher);
     
     doPost(request, response);
     
@@ -145,12 +146,13 @@ public class Test_AmministratoreServlet extends AmministratoreServlet{
     when(request.getParameter("pwd")).thenReturn(password);
     when(request.getSession(true)).thenReturn(session);
    
-    when(request.getRequestDispatcher("Login.html")).thenReturn(requestDispatcher);
+    when(request.getRequestDispatcher("Login.jsp")).thenReturn(requestDispatcher);
     
     doPost(request, response);
     
-    
-    verify(requestDispatcher).forward(request, response);
+    String errorMessage = "Username o password errati";
+    String redirectURL = "Login.jsp?error=" + URLEncoder.encode(errorMessage, "UTF-8");
+    verify(response).sendRedirect(redirectURL);
   }
   //TC_2.1_8
   @Test
@@ -162,7 +164,7 @@ public class Test_AmministratoreServlet extends AmministratoreServlet{
     when(request.getParameter("pwd")).thenReturn(password);
     when(request.getSession(true)).thenReturn(session);
     
-    when(request.getRequestDispatcher("Login.html")).thenReturn(requestDispatcher);
+    when(request.getRequestDispatcher("Login.jsp")).thenReturn(requestDispatcher);
     
     doPost(request, response);
     
@@ -179,7 +181,7 @@ public class Test_AmministratoreServlet extends AmministratoreServlet{
     when(request.getParameter("pwd")).thenReturn(password);
     when(request.getSession(true)).thenReturn(session);
     
-    when(request.getRequestDispatcher("Login.html")).thenReturn(requestDispatcher);
+    when(request.getRequestDispatcher("Login.jsp")).thenReturn(requestDispatcher);
     
     doPost(request, response);
     
@@ -196,7 +198,7 @@ public class Test_AmministratoreServlet extends AmministratoreServlet{
     when(request.getParameter("pwd")).thenReturn(password);
     when(request.getSession(true)).thenReturn(session);
    
-    when(request.getRequestDispatcher("Login.html")).thenReturn(requestDispatcher);
+    when(request.getRequestDispatcher("Login.jsp")).thenReturn(requestDispatcher);
     
     doPost(request, response);
     
@@ -213,17 +215,35 @@ public class Test_AmministratoreServlet extends AmministratoreServlet{
     when(request.getParameter("pwd")).thenReturn(password);
     when(request.getSession(true)).thenReturn(session);
    
-    when(request.getRequestDispatcher("Login.html")).thenReturn(requestDispatcher);
+    when(request.getRequestDispatcher("Login.jsp")).thenReturn(requestDispatcher);
     
     doPost(request, response);
     
-    
-    verify(requestDispatcher).forward(request, response);
+    String errorMessage = "Username o password errati";
+    String redirectURL = "Login.jsp?error=" + URLEncoder.encode(errorMessage, "UTF-8");
+    verify(response).sendRedirect(redirectURL);
   }
- 
   //TC_2.1_12
   @Test
   public void testDoPost12() throws Exception {
+    String user = "francesco";
+    String password = "aurilio9";
+    
+    when(request.getParameter("username")).thenReturn(user);
+    when(request.getParameter("pwd")).thenReturn(password);
+    when(request.getSession(true)).thenReturn(session);
+   
+    when(request.getRequestDispatcher("Homepage.jsp")).thenReturn(requestDispatcher);
+    
+    doPost(request, response);
+    
+ 
+    verify(requestDispatcher).forward(request, response);
+  }
+  
+  //TC_2.1_13
+  @Test
+  public void testDoPost13() throws Exception {
     String user = "admin";
     String password = "admin";
     

@@ -48,7 +48,7 @@ public class GetEsamiOffertaFormativaServlet extends HttpServlet {
       throws ServletException, IOException {
 
     HttpSession session = request.getSession(false); // Ottieni la sessione esistente o null se non esiste
-    String user= (String) request.getSession().getAttribute("utente");
+    String user= (String) session.getAttribute("utente");
     if (session != null) {
       session.invalidate(); // Resettare la sessione e rimuovere tutte le variabili di sessione
     }

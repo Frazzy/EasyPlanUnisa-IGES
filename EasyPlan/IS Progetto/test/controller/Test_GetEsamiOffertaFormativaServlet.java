@@ -11,6 +11,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,6 +29,9 @@ public class Test_GetEsamiOffertaFormativaServlet extends GetEsamiOffertaFormati
 
     @Mock
     private HttpServletResponse response;
+    
+    @Mock
+    private HttpSession session;
 
     @Mock
     private RequestDispatcher requestDispatcher;
@@ -45,10 +49,13 @@ public class Test_GetEsamiOffertaFormativaServlet extends GetEsamiOffertaFormati
         when(request.getParameter("nomeOfferta")).thenReturn("2018/2019");
         when(request.getParameter("laurea")).thenReturn("1");
         when(request.getParameter("curricula")).thenReturn("1");
-
+        when(request.getSession(false)).thenReturn(session);
+        when(session.getAttribute("utente")).thenReturn("utente");
+        
         // Mock della RequestDispatcher
         when(request.getRequestDispatcher("FormulazionePiano.jsp")).thenReturn(requestDispatcher);
 
+       
         // Chiamata al metodo doPost della servlet
         doPost(request, response);
 
@@ -75,6 +82,8 @@ public class Test_GetEsamiOffertaFormativaServlet extends GetEsamiOffertaFormati
         when(request.getParameter("nomeOfferta")).thenReturn("2018/2019");
         when(request.getParameter("laurea")).thenReturn("2");
         when(request.getParameter("curricula")).thenReturn("6");
+        when(request.getSession(false)).thenReturn(session);
+        when(session.getAttribute("utente")).thenReturn("utente");
 
         // Mock della RequestDispatcher
         when(request.getRequestDispatcher("FormulazionePiano.jsp")).thenReturn(requestDispatcher);
@@ -105,6 +114,8 @@ public class Test_GetEsamiOffertaFormativaServlet extends GetEsamiOffertaFormati
         when(request.getParameter("nomeOfferta")).thenReturn("2018/2019");
         when(request.getParameter("laurea")).thenReturn("2");
         when(request.getParameter("curricula")).thenReturn("4");
+        when(request.getSession(false)).thenReturn(session);
+        when(session.getAttribute("utente")).thenReturn("utente");
 
         // Mock della RequestDispatcher
         when(request.getRequestDispatcher("FormulazionePiano.jsp")).thenReturn(requestDispatcher);
@@ -135,6 +146,8 @@ public class Test_GetEsamiOffertaFormativaServlet extends GetEsamiOffertaFormati
         when(request.getParameter("nomeOfferta")).thenReturn("2018/2019");
         when(request.getParameter("laurea")).thenReturn("2");
         when(request.getParameter("curricula")).thenReturn("5");
+        when(request.getSession(false)).thenReturn(session);
+        when(session.getAttribute("utente")).thenReturn("utente");
 
         // Mock della RequestDispatcher
         when(request.getRequestDispatcher("FormulazionePiano.jsp")).thenReturn(requestDispatcher);
@@ -165,6 +178,8 @@ public class Test_GetEsamiOffertaFormativaServlet extends GetEsamiOffertaFormati
         when(request.getParameter("nomeOfferta")).thenReturn("2018/2019");
         when(request.getParameter("laurea")).thenReturn("2");
         when(request.getParameter("curricula")).thenReturn("2");
+        when(request.getSession(false)).thenReturn(session);
+        when(session.getAttribute("utente")).thenReturn("utente");
 
         // Mock della RequestDispatcher
         when(request.getRequestDispatcher("FormulazionePiano.jsp")).thenReturn(requestDispatcher);
@@ -195,6 +210,8 @@ public class Test_GetEsamiOffertaFormativaServlet extends GetEsamiOffertaFormati
         when(request.getParameter("nomeOfferta")).thenReturn("2018/2019");
         when(request.getParameter("laurea")).thenReturn("2");
         when(request.getParameter("curricula")).thenReturn("3");
+        when(request.getSession(false)).thenReturn(session);
+        when(session.getAttribute("utente")).thenReturn("utente");
 
         // Mock della RequestDispatcher
         when(request.getRequestDispatcher("FormulazionePiano.jsp")).thenReturn(requestDispatcher);

@@ -18,13 +18,17 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 
 
 public class Test_SelectionOffertaServlet extends SelectionOffertaServlet {
@@ -752,6 +756,50 @@ public class Test_SelectionOffertaServlet extends SelectionOffertaServlet {
 	        // Verifica dei comportamenti attesi
 	        // Esempio: verifica che il metodo forward sia stato chiamato sul mock di RequestDispatcher
 	        verify(requestDispatcherMock).forward(request, response);
+	     }
+	    
+	  //TC_4.1.1
+	    @Test
+	    public void testSalvaPiano1() throws ServletException, IOException {
+	    	byte[] array = new byte[7]; // length is bounded by 7
+	        new Random().nextBytes(array);
+	        String risultato = new String(array, Charset.forName("UTF-8"));
+	    	String path=System.getProperty("user.dir") + "/JsonSalvatiTest/";
+	    	
+
+	        // Impostazione del comportamento del mock di HttpSession
+	      	when(request.getSession(true)).thenReturn(sessionMock);
+	      	// Impostazione degli attributi della sessione
+	      	when(request.getParameter("metodo")).thenReturn("salva");
+	      	when(request.getParameter("risultato")).thenReturn(risultato);
+	      	when(sessionMock.getAttribute("offertaFormativa")).thenReturn(offertaFormativaMock);
+	      	when(sessionMock.getAttribute("obbligatori1")).thenReturn(obbligatori1List);
+	      	when(sessionMock.getAttribute("obbligatori2")).thenReturn(obbligatori2List);
+	      	when(sessionMock.getAttribute("obbligatori3")).thenReturn(obbligatori3List);
+	      	when(sessionMock.getAttribute("o1")).thenReturn(opzionali1List);
+	      	when(sessionMock.getAttribute("o2")).thenReturn(opzionali2List);
+	      	when(sessionMock.getAttribute("o3")).thenReturn(opzionali3List);
+	      	when(sessionMock.getAttribute("libera")).thenReturn(esamiLib);
+	      	when(sessionMock.getAttribute("utente")).thenReturn("utente");
+	      	ServletContext context = Mockito.mock(ServletContext .class);
+	      	when(request.getServletContext()).thenReturn(context);
+	      	when(context.getRealPath("/")).thenReturn(path);
+	      	when(sessionMock.getAttribute("totalecfuSelLib")).thenReturn(12);
+        
+	        // Impostazione del comportamento del mock di RequestDispatcher
+	        when(request.getRequestDispatcher("Homepage.jsp")).thenReturn(requestDispatcherMock);
+	        // Chiamata del metodo doGet() della servlet
+	        doPost(request, response);
+	        // Verifica dei comportamenti attesi
+	        // Esempio: verifica che il metodo forward sia stato chiamato sul mock di RequestDispatcher
+	        verify(requestDispatcherMock).forward(request, response);
+	        File file = new File(path+ "jsons/"+ risultato + ".json");
+
+	        if (file.delete()) {
+	            System.out.println("Il file è stato eliminato con successo.");
+	        } else {
+	            System.out.println("Impossibile eliminare il file.");
+	        }
 	     }
 	   
 	}
